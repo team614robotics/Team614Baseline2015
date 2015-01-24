@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  *
@@ -21,7 +22,19 @@ public class Chassis extends Subsystem {
     // here. Call these from Commands.
 	
 	private Jaguar LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
+	//private VictorSP LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
 	private Encoder LeftFrontEncoder, LeftRearEncoder, RightFrontEncoder, RightRearEncoder;
+	
+	public static final int LFEncoder = 0;
+	public static final int RFEncoder = 1;
+	public static final int LREncoder = 2;
+	public static final int RREncoder = 3;
+	
+	private boolean ASSISTED_FORWARD = false;
+	private boolean ASSISTED_LEFT = false;
+	private boolean ASSISTED_RIGHT = false;
+	private boolean ASSISTED_BACKWARD = false;
+	
 	private RobotDrive Drive;
 
     public void initDefaultCommand() {
@@ -36,6 +49,13 @@ public class Chassis extends Subsystem {
     	LeftRearMotor = new Jaguar(RobotMap.LEFT_REAR_MOTOR);
     	RightFrontMotor = new Jaguar(RobotMap.RIGHT_FRONT_MOTOR);
     	RightRearMotor = new Jaguar(RobotMap.RIGHT_REAR_MOTOR);
+    	
+    	/**
+    	 *  LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
+    	 *	LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
+    	 *	RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
+    	 *	RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
+    	 */
     	
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
@@ -77,9 +97,29 @@ public class Chassis extends Subsystem {
     	Drive.arcadeDrive(leftValue, rightValue);
     }
     
+    /* Jered - 1/24/2015 - Test Assisted Driving for Viability
+     *                     May need to change Degrees values */
     public void mecanumDriveMode(Joystick Controller){
     	
-    	Drive.mecanumDrive_Polar(Math.abs(Controller.getRawAxis(1)), Controller.getDirectionDegrees(), Controller.getRawAxis(4));
+    	double Magnitude = Math.abs(Controller.getRawAxis(1));
+    	double Degrees = 0.0;
+    	double Rotation = 0.0;
+    	
+    	if(ASSISTED_FORWARD){
+    		Degrees = 0.0;
+    	}else if(ASSISTED_LEFT){
+    		Degrees = 90.0;
+    	}else if(ASSISTED_RIGHT){
+    		Degrees = 270.0;
+    	}else if(ASSISTED_BACKWARD){
+    		Degrees = 180.0;
+    	}else{
+    		Degrees = Controller.getDirectionDegrees();
+    	}
+    	
+    	Rotation = Controller.getRawAxis(4);
+    	
+    	Drive.mecanumDrive_Polar(Magnitude, Degrees, Rotation);
     }
     
     //EDIT FOR USE IN ALL DRIVE MODES
@@ -91,31 +131,63 @@ public class Chassis extends Subsystem {
     	Drive.arcadeDrive(1.0, 1.0);
     }
     
-    
-    //ENCODER STUFF
-    public double getEncoderDistance(Encoder encoder){
-    	return encoder.getDistance();
+    public double getEncoderDistance(int encoderNum){
+    	switch(encoderNum){
+    		case LFEncoder:
+    			return LeftFrontEncoder.getDistance();
+    		case RFEncoder:
+    			return RightFrontEncoder.getDistance();
+    		case LREncoder:
+    			return LeftRearEncoder.getDistance();
+    		case RREncoder:
+    			return RightRearEncoder.getDistance();
+    		default:
+    			return 0.0;
+    	}
     }
     
     
-    //Is this necessary?
-    public boolean getEncoderDirection(encoder){
-    	return encoder.getDirection();
+    public boolean getEncoderDirection(int encoderNum){
+    	switch(encoderNum){
+			case LFEncoder:
+				return LeftFrontEncoder.getDirection();
+			case RFEncoder:
+				return RightFrontEncoder.getDirection();
+			case LREncoder:
+				return LeftRearEncoder.getDirection();
+			case RREncoder:
+				return RightRearEncoder.getDirection();
+			default:
+				return false;
+		}
     }
     
+    public void logData(){
+    	logAssistedData();
+    	logEncoderData();
+    }
+    
+    /* For Logging the Assisted Driving Booleans to the SmartDashboard */
+    public void logAssistedData(){
+    	SmartDashboard.putBoolean("Assisted Forward: ",  ASSISTED_FORWARD);
+    	SmartDashboard.putBoolean("Assisted Backward: ", ASSISTED_BACKWARD);
+    	SmartDashboard.putBoolean("Assisted Left: ",     ASSISTED_LEFT);
+    	SmartDashboard.putBoolean("Assisted Right: ",    ASSISTED_RIGHT);
+    }
+    
+    /* For Logging the Encoder Values to the SmartDashboard */
     public void logEncoderData(){
-    	SmartDashboard.putNumber("Left Front Encoder Distance: ", Robot.chassis.getEncoderDistance(LeftFrontEncoder));
-    	//SmartDashboard.putString("Left Front Encoder Direction: ", (Robot.chassis.getEncoderDirection(LeftFrontEncoder) ? "Clockwise" : "Counter-Clockwise"));
+    	SmartDashboard.putNumber("Left Front Encoder Distance: ", Robot.chassis.getEncoderDistance(LFEncoder));
+    	SmartDashboard.putString("Left Front Encoder Direction: ", (Robot.chassis.getEncoderDirection(LFEncoder) ? "Clockwise" : "Counter-Clockwise"));
     	
-    	SmartDashboard.putNumber("Left Rear Encoder Distance: ", Robot.chassis.getEncoderDistance(LeftRearEncoder));
-    	//SmartDashboard.putString("Left Rear Encoder Direction: ", (Robot.chassis.getEncoderDirection(LeftRearEncoder) ? "Clockwise" : "Counter-Clockwise"));
+    	SmartDashboard.putNumber("Left Rear Encoder Distance: ", Robot.chassis.getEncoderDistance(LREncoder));
+    	SmartDashboard.putString("Left Rear Encoder Direction: ", (Robot.chassis.getEncoderDirection(LREncoder) ? "Clockwise" : "Counter-Clockwise"));
     
-    	SmartDashboard.putNumber("Right Front Encoder Distance: ", Robot.chassis.getEncoderDistance(RightFrontEncoder));
-    	//SmartDashboard.putString("Right Front Encoder Direction: ", (Robot.chassis.getEncoderDirection(RightFrontEncoder) ? "Clockwise" : "Counter-Clockwise"));
+    	SmartDashboard.putNumber("Right Front Encoder Distance: ", Robot.chassis.getEncoderDistance(RFEncoder));
+    	SmartDashboard.putString("Right Front Encoder Direction: ", (Robot.chassis.getEncoderDirection(RFEncoder) ? "Clockwise" : "Counter-Clockwise"));
       	
-    	SmartDashboard.putNumber("Right Rear Encoder Distance: ", Robot.chassis.getEncoderDistance(RightRearEncoder));
-    	//SmartDashboard.putString("Right Rear Encoder Direction: ", (Robot.chassis.getEncoderDirection(RightRearEncoder) ? "Clockwise" : "Counter-Clockwise"));
-    
+    	SmartDashboard.putNumber("Right Rear Encoder Distance: ", Robot.chassis.getEncoderDistance(RREncoder));
+    	SmartDashboard.putString("Right Rear Encoder Direction: ", (Robot.chassis.getEncoderDirection(RREncoder) ? "Clockwise" : "Counter-Clockwise"));
     }
     
     public void resetEncoder(){
@@ -124,6 +196,29 @@ public class Chassis extends Subsystem {
     	RightFrontEncoder.reset();
     	RightRearEncoder.reset();
     	
+    }
+    
+    public void toggleAssistedForward(){
+    	ASSISTED_FORWARD = !ASSISTED_FORWARD;
+    }
+    
+    public void toggleAssistedLeft(){
+    	ASSISTED_LEFT = !ASSISTED_LEFT;
+    }
+    
+    public void toggleAssistedRight(){
+    	ASSISTED_RIGHT = !ASSISTED_RIGHT;
+    }
+    
+    public void toggleAssistedBackward(){
+    	ASSISTED_BACKWARD = !ASSISTED_BACKWARD;
+    }
+    
+    public void clearAssisted(){
+    	ASSISTED_FORWARD = false;
+    	ASSISTED_LEFT = false;
+    	ASSISTED_RIGHT = false;
+    	ASSISTED_BACKWARD = false;
     }
 }
 

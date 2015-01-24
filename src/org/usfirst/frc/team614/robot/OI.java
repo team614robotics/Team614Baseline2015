@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team614.robot.commands.AssignWinchSpeed;
+import org.usfirst.frc.team614.robot.commands.ClearAssisted;
 import org.usfirst.frc.team614.robot.commands.CycleWinch_CG;
 import org.usfirst.frc.team614.robot.commands.DriveStraight_CG;
 import org.usfirst.frc.team614.robot.commands.ExampleCommand;
@@ -12,6 +13,10 @@ import org.usfirst.frc.team614.robot.commands.ResetWinchEncoder;
 import org.usfirst.frc.team614.robot.commands.StraightenRobot;
 import org.usfirst.frc.team614.robot.commands.DriveStraight;
 import org.usfirst.frc.team614.robot.commands.EncodedTurn;
+import org.usfirst.frc.team614.robot.commands.ToggleAssistedBackward;
+import org.usfirst.frc.team614.robot.commands.ToggleAssistedForward;
+import org.usfirst.frc.team614.robot.commands.ToggleAssistedLeft;
+import org.usfirst.frc.team614.robot.commands.ToggleAssistedRight;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,6 +33,12 @@ public class OI {
 	private JoystickButton ResetWinchEncoderButton;
 	private JoystickButton EncodedTurn;
 	
+	private JoystickButton ToggleAForwardButton;
+	private JoystickButton ToggleABackwardButton;
+	private JoystickButton ToggleALeftButton;
+	private JoystickButton ToggleARightButton;
+	private JoystickButton ClearAssistedButton;
+	
 	public OI(){
 		
 		//DriveModeButton = new JoystickButton(PrimaryJoystick, 8);
@@ -42,14 +53,29 @@ public class OI {
 		//DriveStraight = new JoystickButton(PrimaryJoystick, 2);
 		//DriveStraight.toggleWhenActive(new DriveStraight_CG());
 		
-		CycleWinchButton = new JoystickButton(PrimaryJoystick, 3);
-		CycleWinchButton.toggleWhenActive(new CycleWinch_CG());
+		//CycleWinchButton = new JoystickButton(PrimaryJoystick, 3);
+		//CycleWinchButton.toggleWhenActive(new CycleWinch_CG());
 		
-		ResetWinchEncoderButton = new JoystickButton(PrimaryJoystick, 2);
-		ResetWinchEncoderButton.toggleWhenActive(new ResetWinchEncoder());
+		//ResetWinchEncoderButton = new JoystickButton(PrimaryJoystick, 2);
+		//ResetWinchEncoderButton.toggleWhenActive(new ResetWinchEncoder());
 		
-		EncodedTurn = new JoystickButton(PrimaryJoystick, 4);
-		EncodedTurn.toggleWhenActive(new EncodedTurn());
+		//EncodedTurn = new JoystickButton(PrimaryJoystick, 4);
+		//EncodedTurn.toggleWhenActive(new EncodedTurn());
+		
+		ToggleAForwardButton = new JoystickButton(PrimaryJoystick, 4);
+		ToggleAForwardButton.toggleWhenActive(new ToggleAssistedForward());
+		
+		ToggleALeftButton = new JoystickButton(PrimaryJoystick, 3);
+		ToggleALeftButton.toggleWhenActive(new ToggleAssistedLeft());
+		
+		ToggleARightButton = new JoystickButton(PrimaryJoystick, 2);
+		ToggleARightButton.toggleWhenActive(new ToggleAssistedRight());
+		
+		ToggleABackwardButton = new JoystickButton(PrimaryJoystick, 1);
+		ToggleABackwardButton.toggleWhenActive(new ToggleAssistedBackward());
+		
+		ClearAssistedButton = new JoystickButton(PrimaryJoystick, 7);
+		ClearAssistedButton.toggleWhenActive(new ClearAssisted());
 	}
 	
 	public Joystick getPrimaryJoystick(){
