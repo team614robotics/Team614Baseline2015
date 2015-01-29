@@ -25,13 +25,13 @@ public class Winch extends Subsystem{
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new AssignWinchSpeed());
+    	//setDefaultCommand(new AssignWinchSpeed());
     }
     
     public Winch(){
     	
     	WinchTalon = new Talon(RobotMap.WINCH_MOTOR);
-    	WinchEncoder = new Encoder(RobotMap.WINCH_ENCODER_A, RobotMap.WINCH_ENCODER_B, true, EncodingType.k4X);
+    	//WinchEncoder = new Encoder(RobotMap.WINCH_ENCODER_A, RobotMap.WINCH_ENCODER_B, true, EncodingType.k4X);
     }
     
     public void startMotor(){

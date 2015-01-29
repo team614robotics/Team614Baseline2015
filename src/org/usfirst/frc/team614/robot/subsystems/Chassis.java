@@ -20,9 +20,10 @@ public class Chassis extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+	public final double AUTO_MAGNITUDE = 0.3;
 	
-	private Jaguar LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
-	//private VictorSP LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
+	//private Jaguar LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
+	private VictorSP LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
 	private Encoder LeftFrontEncoder, LeftRearEncoder, RightFrontEncoder, RightRearEncoder;
 	
 	public static final int LFEncoder = 0;
@@ -45,24 +46,26 @@ public class Chassis extends Subsystem {
     
     public Chassis(){
     	
-    	LeftFrontMotor = new Jaguar(RobotMap.LEFT_FRONT_MOTOR);
-    	LeftRearMotor = new Jaguar(RobotMap.LEFT_REAR_MOTOR);
-    	RightFrontMotor = new Jaguar(RobotMap.RIGHT_FRONT_MOTOR);
-    	RightRearMotor = new Jaguar(RobotMap.RIGHT_REAR_MOTOR);
-    	
     	/**
-    	 *  LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
-    	 *	LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
-    	 *	RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
-    	 *	RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
+    	 * LeftFrontMotor = new Jaguar(RobotMap.LEFT_FRONT_MOTOR);
+     	 * LeftRearMotor = new Jaguar(RobotMap.LEFT_REAR_MOTOR);
+    	 * RightFrontMotor = new Jaguar(RobotMap.RIGHT_FRONT_MOTOR);
+    	 * RightRearMotor = new Jaguar(RobotMap.RIGHT_REAR_MOTOR);
     	 */
+    	
+    	 LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
+    	 LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
+    	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
+    	 RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
     	
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
     	RightFrontEncoder = new Encoder(RobotMap.RIGHT_FRONT_ENCODER_A, RobotMap.RIGHT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	RightRearEncoder = new Encoder(RobotMap.RIGHT_REAR_ENCODER_A, RobotMap.RIGHT_REAR_ENCODER_B, true, EncodingType.k4X);
     	
-    	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);   	
+    	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
+    	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+    	Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     }
     
     public void tankDriveMode(Joystick Controller){
@@ -101,34 +104,68 @@ public class Chassis extends Subsystem {
      *                     May need to change Degrees values */
     public void mecanumDriveMode(Joystick Controller){
     	
-    	double Magnitude = Math.abs(Controller.getRawAxis(1));
+    	double Magnitude = -Controller.getMagnitude();
+    	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude);
+    	
     	double Degrees = 0.0;
     	double Rotation = 0.0;
     	
     	if(ASSISTED_FORWARD){
-    		Degrees = 0.0;
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 180.0;
     	}else if(ASSISTED_LEFT){
+    		Magnitude = Math.abs(Magnitude);
     		Degrees = 90.0;
     	}else if(ASSISTED_RIGHT){
+    		Magnitude = Math.abs(Magnitude);
     		Degrees = 270.0;
     	}else if(ASSISTED_BACKWARD){
-    		Degrees = 180.0;
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 0.0;
     	}else{
     		Degrees = Controller.getDirectionDegrees();
     	}
     	
-    	Rotation = Controller.getRawAxis(4);
+    	Rotation = -Controller.getRawAxis(4);
+    	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation);
     	
-    	Drive.mecanumDrive_Polar(Magnitude, Degrees, Rotation);
+    	Drive.mecanumDrive_Polar(Magnitude / 4.0, Degrees, Rotation / 4.0);
     }
     
     //EDIT FOR USE IN ALL DRIVE MODES
     public void manualDrive(double Magnitude, double Degrees, double Rotation){
-    	Drive.mecanumDrive_Polar(Magnitude, Degrees, Rotation);
+    	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude);
+    	
+    	if(ASSISTED_FORWARD){
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 180.0;
+    	}else if(ASSISTED_LEFT){
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 90.0;
+    	}else if(ASSISTED_RIGHT){
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 270.0;
+    	}else if(ASSISTED_BACKWARD){
+    		Magnitude = Math.abs(Magnitude);
+    		Degrees = 0.0;
+    	}
+    	
+    	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation);
+    	
+    	System.out.println("Degrees: " + Degrees);
+    	
+    	Drive.mecanumDrive_Polar(Magnitude / 4.0, Degrees, Rotation / 4.0);
     }
     
     public void straight(){
     	Drive.arcadeDrive(1.0, 1.0);
+    }
+    
+    public void stopChassis(){
+    	LeftFrontMotor.stopMotor();
+    	RightFrontMotor.stopMotor();
+    	LeftRearMotor.stopMotor();
+    	RightRearMotor.stopMotor();
     }
     
     public double getEncoderDistance(int encoderNum){

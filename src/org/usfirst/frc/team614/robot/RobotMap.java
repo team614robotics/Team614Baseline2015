@@ -25,10 +25,10 @@ public class RobotMap {
 	}
 	
 	public static DriveMode DRIVE_MODE = DriveMode.MECANUM_DRIVE;
-	public static final int LEFT_FRONT_MOTOR = 2;
-	public static final int LEFT_REAR_MOTOR = 0;
-	public static final int RIGHT_FRONT_MOTOR = 4;
-	public static final int RIGHT_REAR_MOTOR = 5;
+	public static final int LEFT_FRONT_MOTOR = 6;//2;
+	public static final int LEFT_REAR_MOTOR = 7;//0;
+	public static final int RIGHT_FRONT_MOTOR = 8;//4;
+	public static final int RIGHT_REAR_MOTOR = 9;//5;
 	
 	
 	//CHANGE THE VALUES OF THESE ENCODER
@@ -64,6 +64,6 @@ public class RobotMap {
 	
 	//JOYSTICK CONSTANTS
 	public static final int PRIMARY_JOYSTICK = 0;
-	public static final double JOYSTICK_DEADBAND = 0.2;
+	public static final double JOYSTICK_DEADBAND = 0.1;
 	
 }
