@@ -47,7 +47,7 @@ public class DriveDistance extends Command {
     		averageCurrDistance += Robot.chassis.getEncoderDistance(i);
     	}*/
     	while(Robot.chassis.getEncoderDistance(0) < distanceToDrive){
-    		Robot.chassis.manualDrive(, Degrees, Rotation);
+    		Robot.chassis.manualDrive(0.0, 0.0, 0.0); //(???, Degrees, Rotation) set at 0.0 for default
     	}
     	isDone = true;
     }

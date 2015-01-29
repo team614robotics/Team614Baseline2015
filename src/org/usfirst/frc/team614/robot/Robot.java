@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team614.robot.commands.ExampleCommand;
+import org.usfirst.frc.team614.robot.subsystems.Camera;
 import org.usfirst.frc.team614.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team614.robot.subsystems.Chassis;
 import org.usfirst.frc.team614.robot.subsystems.RangeFinder;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static final RangeFinder rangefinder = new RangeFinder();
 	public static final Gyroscope gyroscope = new Gyroscope();
 	public static final Winch winch  = new Winch();
+	public static final Camera camera = new Camera();
 	public static OI oi;
 
     Command autonomousCommand;

@@ -16,6 +16,9 @@ public class RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 	
+	//CAMERA CONSTANTS
+	public static final String CameraIP = "10.6.14.21";
+	
 	//CHASSIS CONSTANTS
 	public enum DriveMode{
 		
