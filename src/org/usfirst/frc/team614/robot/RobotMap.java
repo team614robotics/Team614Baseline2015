@@ -16,8 +16,14 @@ public class RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 	
+	//AUTONOMOUS MODE CONSTANTS
+	public static final double AUTO_MOTOR_MAGNITUDE = 1.0;
+	public static final double AUTO_ANGLE_RANGE = 2.0;
+	
 	//CAMERA CONSTANTS
-	public static final String CameraIP = "10.6.14.21";
+	public static final String CAMERA_IP = "10.6.14.20";
+	public static final int HORIZONTAL_SERVO_PWM = 9;
+	public static final int VERTICAL_SERVO_PWM = 8;
 	
 	//CHASSIS CONSTANTS
 	public enum DriveMode{
@@ -28,10 +34,10 @@ public class RobotMap {
 	}
 	
 	public static DriveMode DRIVE_MODE = DriveMode.MECANUM_DRIVE;
-	public static final int LEFT_FRONT_MOTOR = 6;//2;
-	public static final int LEFT_REAR_MOTOR = 7;//0;
-	public static final int RIGHT_FRONT_MOTOR = 8;//4;
-	public static final int RIGHT_REAR_MOTOR = 9;//5;
+	public static final int LEFT_FRONT_MOTOR = 2;//6;
+	public static final int LEFT_REAR_MOTOR = 0;//7;//0;
+	public static final int RIGHT_FRONT_MOTOR = 4;//8;//4;
+	public static final int RIGHT_REAR_MOTOR = 5;//9;//5;
 	
 	
 	//CHANGE THE VALUES OF THESE ENCODER
@@ -59,6 +65,12 @@ public class RobotMap {
 	
 	//GYROSCOPE CONSTANTS
 	public static final int GYROSCOPE_AC = 1;
+	
+	//ACCELEROMETER CONSTANTS
+	public static final double ACCELEROMETER_RANGE = 0.5;
+	
+	//PNEUMATIC CONSTANTS
+	public static final int PCM_ID = 0;
 	
 	//WINCH CONSTANTS
 	public static final int WINCH_MOTOR = 1;

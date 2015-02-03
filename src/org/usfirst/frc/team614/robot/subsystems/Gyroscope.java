@@ -3,6 +3,8 @@ package org.usfirst.frc.team614.robot.subsystems;
 import org.usfirst.frc.team614.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 
 import org.usfirst.frc.team614.robot.commands.GetAngle;
@@ -16,7 +18,8 @@ public class Gyroscope extends Subsystem {
     // here. Call these from Commands.
 	
 	private Gyro GyroScope;
-
+	private BuiltInAccelerometer Accelerometer;
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -25,10 +28,12 @@ public class Gyroscope extends Subsystem {
     
     public Gyroscope(){
     	
+    	Accelerometer = new BuiltInAccelerometer();
     	GyroScope = new Gyro(RobotMap.GYROSCOPE_AC);
-    	GyroScope.setSensitivity(0.009);
+    	GyroScope.setSensitivity(5 / GyroScope.getRate());
     	//GyroScope.reset();
     	GyroScope.initGyro();
+    	
     }
     
     public double getAngle(){
@@ -41,6 +46,11 @@ public class Gyroscope extends Subsystem {
     
     public void resetGyro(){
     	GyroScope.reset();
+    	if(Accelerometer.getX() < RobotMap.ACCELEROMETER_RANGE && Accelerometer.getX() > -RobotMap.ACCELEROMETER_RANGE){
+    		if(Accelerometer.getY() < RobotMap.ACCELEROMETER_RANGE && Accelerometer.getY() > -RobotMap.ACCELEROMETER_RANGE){
+    			GyroScope.initGyro();
+    		}
+    	}
     }
 }
 

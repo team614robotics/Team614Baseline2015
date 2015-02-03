@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team614.robot.commands.ExampleCommand;
+import org.usfirst.frc.team614.robot.commands.AutonomousCommand_CG;
 import org.usfirst.frc.team614.robot.subsystems.Camera;
 import org.usfirst.frc.team614.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team614.robot.subsystems.Chassis;
+import org.usfirst.frc.team614.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team614.robot.subsystems.RangeFinder;
 import org.usfirst.frc.team614.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team614.robot.subsystems.Winch;
@@ -29,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static final RangeFinder rangefinder = new RangeFinder();
 	public static final Gyroscope gyroscope = new Gyroscope();
 	public static final Winch winch  = new Winch();
+	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Camera camera = new Camera();
 	public static OI oi;
 
@@ -41,7 +44,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        autonomousCommand = new AutonomousCommand_CG();
     }
 	
 	public void disabledPeriodic() {
