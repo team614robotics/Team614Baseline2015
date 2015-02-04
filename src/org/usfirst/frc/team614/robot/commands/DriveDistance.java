@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveDistance extends Command {
 	
+	private final boolean manualSpeedMode = true;
+	private final double MOTOR_REDUCTION_SCALE = 0.9;
+	
 	private double distanceToDrive = 0.0;
 	private double initialAngle = 0.0;
 	private boolean driveForward;
@@ -61,16 +64,29 @@ public class DriveDistance extends Command {
     						   currAngleOffset > (initialAngle - RobotMap.AUTO_ANGLE_RANGE) ? 0 : 
     						   currAngleOffset);
     		
-    		/**
-    		 * Since Rotation needs a value on [-1.0,1.0], we
-    		 * divide the angle by 360, and invert it.
-    		 * 
-    		 * The reason we invert it is so we will rotate opposite
-    		 * of the angle, so it will decrease in magnitude
-    		 */
-    		double AngleRotation = -(currAngleOffset / 360.0);
-    		
-    		Robot.chassis.manualDrive(RobotMap.AUTO_MOTOR_MAGNITUDE, 0.0, AngleRotation);
+    		if(!manualSpeedMode){
+	    		/**
+	    		 * Since Rotation needs a value on [-1.0,1.0], we
+	    		 * divide the angle by 360, and invert it.
+	    		 * 
+	    		 * The reason we invert it is so we will rotate opposite
+	    		 * of the angle, so it will decrease in magnitude
+	    		 */
+	    		double AngleRotation = -(currAngleOffset / 360.0);
+	    		
+	    		Robot.chassis.manualDrive(RobotMap.AUTO_MOTOR_MAGNITUDE, 0.0, AngleRotation);
+    		}else{
+    			double LeftMotorSpeed = RobotMap.AUTO_MOTOR_MAGNITUDE;
+    			double RightMotorSpeed = RobotMap.AUTO_MOTOR_MAGNITUDE;
+    			
+    			if(currAngleOffset < 0){
+    				LeftMotorSpeed *= MOTOR_REDUCTION_SCALE;
+    			}else{
+    				RightMotorSpeed *= MOTOR_REDUCTION_SCALE;
+    			}
+    			Robot.chassis.motorSpeedDrive(LeftMotorSpeed, LeftMotorSpeed, 
+    					                      RightMotorSpeed, RightMotorSpeed);
+    		}
     	}
     	isDone = true;
     }

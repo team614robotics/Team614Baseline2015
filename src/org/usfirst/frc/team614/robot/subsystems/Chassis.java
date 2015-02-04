@@ -156,15 +156,19 @@ public class Chassis extends Subsystem {
     	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE);
     }
     
+    public void motorSpeedDrive(double LeftFrontMotorSpeed, double LeftRearMotorSpeed,
+    		                    double RightFrontMotorSpeed, double RightRearMotorSpeed){
+    	LeftFrontMotor.set(LeftFrontMotorSpeed);
+    	LeftRearMotor.set(LeftRearMotorSpeed);
+    	RightFrontMotor.set(RightFrontMotorSpeed);
+    	RightRearMotor.set(RightRearMotorSpeed);
+    }
+    
     public void straight(){
     	Drive.arcadeDrive(1.0, 1.0);
     }
     
     public void stopChassis(){
-    	LeftFrontMotor.stopMotor();
-    	RightFrontMotor.stopMotor();
-    	LeftRearMotor.stopMotor();
-    	RightRearMotor.stopMotor();
     	Drive.stopMotor();
     }
     

@@ -24,8 +24,8 @@ public class MoveCamera extends Command {
     	double verticalValue = Robot.oi.getPrimaryJoystick().getRawAxis(5);
     	double horizontalValue = Robot.oi.getPrimaryJoystick().getRawAxis(4);
     	
-    	verticalValue = ((verticalValue + 1.0) / 2.0);
-    	horizontalValue = ((horizontalValue + 1.0) / 2.0);
+    	verticalValue = (0.5 + (verticalValue / 2.0));
+    	horizontalValue = (0.5 + (horizontalValue / 2.0));
     	
     	Robot.camera.setServoPosition(verticalValue, horizontalValue);
     }
