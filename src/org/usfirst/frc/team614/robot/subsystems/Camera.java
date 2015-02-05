@@ -4,6 +4,7 @@ import org.usfirst.frc.team614.robot.RobotMap;
 import org.usfirst.frc.team614.robot.commands.MoveCamera;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 import edu.wpi.first.wpilibj.Servo;
 
@@ -35,6 +36,19 @@ public class Camera extends Subsystem {
     public void setServoPosition(double V_Value, double H_Value){
     	H_Servo.set(H_Value);
     	V_Servo.set(V_Value);
+    }
+    
+    public double getServoPositionH(){
+    	return H_Servo.get();
+    }
+    
+    public double getServoPositionV(){
+    	return V_Servo.get();
+    }
+    
+    public void logServoPosition(){
+    	SmartDashboard.putNumber("Servo Vertical Value", V_Servo.get());
+    	SmartDashboard.putNumber("Servo Horizontal Value", H_Servo.get());
     }
 }
 

@@ -29,9 +29,9 @@ public class AutonomousCommand_CG extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	//addSequential(new OpenArms(timeout));
+    	addSequential(new OpenArms(timeout));
     	addSequential(new DriveDistance(distance, true, timeout));
-    	//addSequential(new CloseArms(timeout));
+    	addSequential(new CloseArms(timeout));
     	addSequential(new DriveDistance(distance, false, timeout));
    
     	

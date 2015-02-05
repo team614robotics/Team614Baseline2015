@@ -21,10 +21,10 @@ public class Chassis extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	private final double SPEED_SCALE = 4.0;
+	private final double SPEED_SCALE = 1.0;
 	
-	private Jaguar LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
-	//private VictorSP LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
+	//private Jaguar LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
+	private VictorSP LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor;
 	private Encoder LeftFrontEncoder, LeftRearEncoder, RightFrontEncoder, RightRearEncoder;
 	
 	public static final int LFEncoder = 0;
@@ -47,19 +47,19 @@ public class Chassis extends Subsystem {
     
     public Chassis(){
     	
-    	
+    	/**
     	 LeftFrontMotor = new Jaguar(RobotMap.LEFT_FRONT_MOTOR);
      	 LeftRearMotor = new Jaguar(RobotMap.LEFT_REAR_MOTOR);
     	 RightFrontMotor = new Jaguar(RobotMap.RIGHT_FRONT_MOTOR);
     	 RightRearMotor = new Jaguar(RobotMap.RIGHT_REAR_MOTOR);
-    	 
+    	 */
     	
-    	/**
+    	
     	 LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
     	 LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
     	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
     	 RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
-    	 */
+    	 
     	
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
@@ -68,7 +68,7 @@ public class Chassis extends Subsystem {
     	
     	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
     	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-    	Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+    	Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
     }
     
     public void tankDriveMode(Joystick Controller){

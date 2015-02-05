@@ -28,7 +28,7 @@ public class AssignWinchSpeed extends Command {
     		WinchSpeed = Robot.oi.getPrimaryJoystick().getRawAxis(2);
     	}
     	Robot.winch.setMotorSpeed(WinchSpeed);
-    	Robot.winch.logEncoderData();
+    	//Robot.winch.logEncoderData();
     }
 
     // Make this return true when this Command no longer needs to run execute()

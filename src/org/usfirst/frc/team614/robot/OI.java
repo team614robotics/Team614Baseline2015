@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team614.robot.commands.AssignWinchSpeed;
 import org.usfirst.frc.team614.robot.commands.ClearAssisted;
+import org.usfirst.frc.team614.robot.commands.CloseArms;
 import org.usfirst.frc.team614.robot.commands.CycleWinch_CG;
 import org.usfirst.frc.team614.robot.commands.DriveStraight_CG;
 import org.usfirst.frc.team614.robot.commands.ExampleCommand;
 import org.usfirst.frc.team614.robot.commands.ChangeDriveMode;
+import org.usfirst.frc.team614.robot.commands.OpenArms;
+import org.usfirst.frc.team614.robot.commands.RAVE_PARTY;
 import org.usfirst.frc.team614.robot.commands.ResetWinchEncoder;
 import org.usfirst.frc.team614.robot.commands.StraightenRobot;
 import org.usfirst.frc.team614.robot.commands.DriveStraight;
@@ -38,6 +41,11 @@ public class OI {
 	private JoystickButton ToggleALeftButton;
 	private JoystickButton ToggleARightButton;
 	private JoystickButton ClearAssistedButton;
+	
+	private JoystickButton OpenArmsButton;
+	private JoystickButton CloseArmsButton;
+	
+	private JoystickButton RAVEBUTTON;
 	
 	public OI(){
 		
@@ -76,6 +84,15 @@ public class OI {
 		
 		ClearAssistedButton = new JoystickButton(PrimaryJoystick, 7);
 		ClearAssistedButton.toggleWhenActive(new ClearAssisted());
+		
+		OpenArmsButton = new JoystickButton(PrimaryJoystick, 5);
+		OpenArmsButton.toggleWhenActive(new OpenArms(1.0));
+		
+		CloseArmsButton = new JoystickButton(PrimaryJoystick, 6);
+		CloseArmsButton.toggleWhenActive(new CloseArms(1.0));
+		
+		//RAVEBUTTON = new JoystickButton(PrimaryJoystick, 5);
+		//RAVEBUTTON.toggleWhenPressed(new RAVE_PARTY(5));
 	}
 	
 	public Joystick getPrimaryJoystick(){

@@ -34,10 +34,10 @@ public class RobotMap {
 	}
 	
 	public static DriveMode DRIVE_MODE = DriveMode.MECANUM_DRIVE;
-	public static final int LEFT_FRONT_MOTOR = 2;//6;
-	public static final int LEFT_REAR_MOTOR = 0;//7;//0;
-	public static final int RIGHT_FRONT_MOTOR = 4;//8;//4;
-	public static final int RIGHT_REAR_MOTOR = 5;//9;//5;
+	public static final int LEFT_FRONT_MOTOR = 0;//2;//6;
+	public static final int LEFT_REAR_MOTOR = 2;//0;//7;//0;
+	public static final int RIGHT_FRONT_MOTOR = 1;//4;//8;//4;
+	public static final int RIGHT_REAR_MOTOR = 3;//5;//9;//5;
 	
 	
 	//CHANGE THE VALUES OF THESE ENCODER
@@ -71,9 +71,11 @@ public class RobotMap {
 	
 	//PNEUMATIC CONSTANTS
 	public static final int PCM_ID = 0;
+	public static final int PISTON_ID = 5;
 	
 	//WINCH CONSTANTS
-	public static final int WINCH_MOTOR = 1;
+	public static final int PRIMARY_WINCH_MOTOR = 5;
+	public static final int SECONDARY_WINCH_MOTOR = 4;
 	public static final int WINCH_ENCODER_A = 0;
 	public static final int WINCH_ENCODER_B = 1;
 	

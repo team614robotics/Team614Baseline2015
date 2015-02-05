@@ -3,7 +3,7 @@ package org.usfirst.frc.team614.robot.subsystems;
 import org.usfirst.frc.team614.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,7 +16,8 @@ public class Pneumatics extends Subsystem {
     // here. Call these from Commands.
 
 	private Compressor PneumaticCompressor;
-	private Relay Piston;
+	private Solenoid Piston;
+	//private Relay Piston;
 	private boolean pistonState;
 	
 	
@@ -30,9 +31,10 @@ public class Pneumatics extends Subsystem {
 		PneumaticCompressor = new Compressor(RobotMap.PCM_ID);
 		PneumaticCompressor.setClosedLoopControl(true);
 		
+		Piston = new Solenoid(RobotMap.PISTON_ID);
 		//Piston = new Relay(RobotMap.PISTON_SPIKE_RELAY, Relay.Direction.kBoth);
 		
-        pistonState = false;
+        pistonState = true;
 
       //compressor.start();
     }
@@ -49,14 +51,14 @@ public class Pneumatics extends Subsystem {
 
     public void extendPiston()
     {
-        Piston.set(Relay.Value.kForward);
+        Piston.set(true);
         pistonState = true;
         SmartDashboard.putBoolean("Piston State: ", pistonState);
     }
 
     public void retractPiston()
     {
-        Piston.set(Relay.Value.kReverse);
+        Piston.set(false);
         pistonState = false;
         SmartDashboard.putBoolean("Piston State: ", pistonState);
     }

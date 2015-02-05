@@ -30,13 +30,12 @@ public class CloseArms extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	//EDIT
-    	/*
+    	
     	if(firstTime && Robot.pneumatics.getPistonState() == true){
     		Robot.pneumatics.retractPiston();
     		firstTime = false;
     	}
-    	*/
+    	
     		
     }
 

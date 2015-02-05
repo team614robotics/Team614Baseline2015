@@ -26,7 +26,7 @@ public class Gyroscope extends Subsystem {
     	setDefaultCommand(new GetAngle());
     }
     
-    public Gyroscope(){
+    public Gyroscope(){  //the constructor
     	
     	Accelerometer = new BuiltInAccelerometer();
     	GyroScope = new Gyro(RobotMap.GYROSCOPE_AC);
@@ -36,7 +36,7 @@ public class Gyroscope extends Subsystem {
     	
     }
     
-    public double getAngle(){
+    public double getAngle(){ //the methods
     	return GyroScope.getAngle();
     }
     

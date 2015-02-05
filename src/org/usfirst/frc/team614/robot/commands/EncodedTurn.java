@@ -46,7 +46,7 @@ public class EncodedTurn extends Command {
     		if(Robot.winch.getEncoderDistance() <= encoderValue)
     			isDone = true;
     	}
-    	Robot.winch.logEncoderData();
+    	//Robot.winch.logEncoderData();
     }
 
     // Make this return true when this Command no longer needs to run execute()
