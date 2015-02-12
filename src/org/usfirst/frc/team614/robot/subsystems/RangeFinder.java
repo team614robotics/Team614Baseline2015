@@ -51,7 +51,7 @@ public class RangeFinder extends Subsystem {
     			break;
     	}
     	
-    	currDistance /= 2.54;
+    	currDistance /= 2.54;  //converting from cm to inches
     	
     	return currDistance;
     }

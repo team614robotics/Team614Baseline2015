@@ -5,7 +5,7 @@ import org.usfirst.frc.team614.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ Sets ASSISTED_RIGHT , ASSISTED_LEFT, ASSISTED_FORWARD, ASSISTED_BACKWARD to false
  */
 public class ClearAssisted extends Command {
 	

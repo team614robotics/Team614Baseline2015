@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team614.robot.commands.AssignWinchSpeed;
+import org.usfirst.frc.team614.robot.commands.CassiesRAVE_COMMAND;
 import org.usfirst.frc.team614.robot.commands.ClearAssisted;
 import org.usfirst.frc.team614.robot.commands.CloseArms;
 import org.usfirst.frc.team614.robot.commands.CycleWinch_CG;
@@ -45,7 +46,7 @@ public class OI {
 	private JoystickButton OpenArmsButton;
 	private JoystickButton CloseArmsButton;
 	
-	private JoystickButton RAVEBUTTON;
+	//private JoystickButton RAVEBUTTON;
 	
 	public OI(){
 		
@@ -125,5 +126,6 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	
 }
 

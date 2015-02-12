@@ -38,8 +38,8 @@ public class RAVE_PARTY extends Command {
     	
     	Robot.chassis.motorSpeedDrive(LeftMotorSpeed, LeftMotorSpeed, RightMotorSpeed, RightMotorSpeed);
     	
-    	//Robot.camera.setServoPosition(VerticalValue, HorizontalValue);
-    	//Robot.camera.logServoPosition();
+    	Robot.camera.setServoPosition(VerticalValue, HorizontalValue);
+    	Robot.camera.logServoPosition();
     	try{
     		this.wait(250);
     	}catch(InterruptedException IE){

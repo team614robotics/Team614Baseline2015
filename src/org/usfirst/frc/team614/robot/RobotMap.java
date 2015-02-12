@@ -34,10 +34,10 @@ public class RobotMap {
 	}
 	
 	public static DriveMode DRIVE_MODE = DriveMode.MECANUM_DRIVE;
-	public static final int LEFT_FRONT_MOTOR = 0;//2;//6;
-	public static final int LEFT_REAR_MOTOR = 2;//0;//7;//0;
-	public static final int RIGHT_FRONT_MOTOR = 1;//4;//8;//4;
-	public static final int RIGHT_REAR_MOTOR = 3;//5;//9;//5;
+	public static final int LEFT_FRONT_MOTOR = 0;//2;
+	public static final int LEFT_REAR_MOTOR = 2;//0;  //switched this from RIGHT_REAR_MOTOR to test switching rotate and strafe functions
+	public static final int RIGHT_FRONT_MOTOR = 1;//4;
+	public static final int RIGHT_REAR_MOTOR = 3;//5  //switched this from LEFT_REAR_MOTOR to test switching rotate and strafe functions
 	
 	
 	//CHANGE THE VALUES OF THESE ENCODER
@@ -74,10 +74,11 @@ public class RobotMap {
 	public static final int PISTON_ID = 5;
 	
 	//WINCH CONSTANTS
-	public static final int PRIMARY_WINCH_MOTOR = 5;
-	public static final int SECONDARY_WINCH_MOTOR = 4;
+	public static final int PRIMARY_WINCH_MOTOR = 5;//1;//5;
+	public static final int SECONDARY_WINCH_MOTOR = 4;//3;//4;
 	public static final int WINCH_ENCODER_A = 0;
 	public static final int WINCH_ENCODER_B = 1;
+	public static final int ENCODER_RANGE = 2;
 	
 	//JOYSTICK CONSTANTS
 	public static final int PRIMARY_JOYSTICK = 0;

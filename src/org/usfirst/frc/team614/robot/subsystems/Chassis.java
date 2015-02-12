@@ -56,10 +56,11 @@ public class Chassis extends Subsystem {
     	
     	
     	 LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
-    	 LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
+    	 //LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
+    	 LeftRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
     	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
-    	 RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
-    	 
+    	 //RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
+    	 RightRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
     	
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
@@ -68,12 +69,18 @@ public class Chassis extends Subsystem {
     	
     	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
     	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-    	Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+    	Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     }
     
     public void tankDriveMode(Joystick Controller){
     	double leftValue = 0, rightValue = 0;
-    	leftValue = Controller.getRawAxis(0);
+    	leftValue = Controller.getRawAxis(0); 
     	rightValue = Controller.getRawAxis(4);
     	
     	// Simplified IF statement. If leftValue is in the deadband range(-JoystickDeadband, JoystickDeadband), it returns 0
@@ -108,7 +115,7 @@ public class Chassis extends Subsystem {
     public void mecanumDriveMode(Joystick Controller){
     	
     	double Magnitude = -Controller.getMagnitude();
-    	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude);
+    	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
     	
     	double Degrees = 0.0;
     	double Rotation = 0.0;
@@ -126,11 +133,12 @@ public class Chassis extends Subsystem {
     		Magnitude = Math.abs(Magnitude);
     		Degrees = 0.0;
     	}else{
-    		Degrees = Controller.getDirectionDegrees();
+    		SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
+    		Degrees = Controller.getDirectionDegrees(); //using input from the controller
     	}
     	
-    	Rotation = -Controller.getRawAxis(4);
-    	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation);
+    	Rotation = -Controller.getRawAxis(4); //Axis 4  =  right analog stick = rotation
+    	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation); //if rotation is within the deadband range, set it equal to 0. If not, don't modify it. 
     	
     	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE);
     }
@@ -172,15 +180,15 @@ public class Chassis extends Subsystem {
     	Drive.stopMotor();
     }
     
-    public double getEncoderDistance(int encoderNum){
+    public double getEncoderDistance(int encoderNum){ 
     	switch(encoderNum){
-    		case LFEncoder:
+    		case LFEncoder: //if = 0
     			return LeftFrontEncoder.getDistance();
-    		case RFEncoder:
+    		case RFEncoder: //if = 1
     			return RightFrontEncoder.getDistance();
-    		case LREncoder:
+    		case LREncoder: //if = 2
     			return LeftRearEncoder.getDistance();
-    		case RREncoder:
+    		case RREncoder: //if = 3
     			return RightRearEncoder.getDistance();
     		default:
     			return 0.0;
@@ -190,13 +198,13 @@ public class Chassis extends Subsystem {
     
     public boolean getEncoderDirection(int encoderNum){
     	switch(encoderNum){
-			case LFEncoder:
+			case LFEncoder: //if = 0
 				return LeftFrontEncoder.getDirection();
-			case RFEncoder:
+			case RFEncoder: //if = 1
 				return RightFrontEncoder.getDirection();
-			case LREncoder:
+			case LREncoder: //if = 2
 				return LeftRearEncoder.getDirection();
-			case RREncoder:
+			case RREncoder: //if = 3
 				return RightRearEncoder.getDirection();
 			default:
 				return false;

@@ -31,7 +31,7 @@ public class CloseArms extends Command {
     protected void execute() {
     	
     	
-    	if(firstTime && Robot.pneumatics.getPistonState() == true){
+    	if(firstTime && Robot.pneumatics.getPistonState()){ //only close the arms if the piston is already open
     		Robot.pneumatics.retractPiston();
     		firstTime = false;
     	}

@@ -33,15 +33,18 @@ public class Camera extends Subsystem {
     	V_Servo = new Servo(RobotMap.VERTICAL_SERVO_PWM);
     }
     
+    //V_Value and H_Value must be within a range of 0-1
     public void setServoPosition(double V_Value, double H_Value){
     	H_Servo.set(H_Value);
     	V_Servo.set(V_Value);
     }
     
+    //returns a number between 0-1
     public double getServoPositionH(){
     	return H_Servo.get();
     }
     
+    //returns a number between 0-1
     public double getServoPositionV(){
     	return V_Servo.get();
     }
@@ -49,6 +52,7 @@ public class Camera extends Subsystem {
     public void logServoPosition(){
     	SmartDashboard.putNumber("Servo Vertical Value", V_Servo.get());
     	SmartDashboard.putNumber("Servo Horizontal Value", H_Servo.get());
+    	
     }
 }
 

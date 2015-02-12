@@ -31,8 +31,8 @@ public class Robot extends IterativeRobot {
 	public static final RangeFinder rangefinder = new RangeFinder();
 	public static final Gyroscope gyroscope = new Gyroscope();
 	public static final Winch winch  = new Winch();
-	public static final Pneumatics pneumatics = new Pneumatics();
-	public static final Camera camera = null;// = new Camera();
+	public static final Pneumatics pneumatics = new Pneumatics(); //new Pneumatics();
+	public static final Camera camera = null;//new Camera(); null for when it's hooked up to the new robot. If not, set it equal to new Camera()
 	public static OI oi;
 
     Command autonomousCommand;

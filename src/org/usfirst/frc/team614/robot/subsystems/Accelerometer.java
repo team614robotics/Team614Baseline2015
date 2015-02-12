@@ -26,7 +26,8 @@ public class Accelerometer extends Subsystem {
     	Accelerometer = new BuiltInAccelerometer();
     }
     
-    //returns the accelerometer's 
+    //returns the accelerometer's speed in g's
+    
     public double getSpeedX(){  
     	return Accelerometer.getX();
     }

@@ -27,6 +27,7 @@ public class Drive_Joystick extends Command {
     		Robot.chassis.arcadeDriveMode(Robot.oi.getPrimaryJoystick());
     	}else{
     		Robot.chassis.mecanumDriveMode(Robot.oi.getPrimaryJoystick());
+    		//Robot.chassis.manualDrive(0.5, 90, 0.0);
     	}
     	Robot.chassis.logData();
     }

@@ -34,17 +34,28 @@ public class ChangeDriveMode extends Command {
     		currMode = RobotMap.DriveMode.values()[currMode.ordinal() + 1]; //Otherwise, it goes to the next mode
     	}
     	
-    	switch(currMode.ordinal()){
-    		case 0:			//TANK DRIVE
-    			SmartDashboard.putString("Drive Mode: ", "Tank");
-    			break;
-    		case 1:			//ARCADE DRIVE
-    			SmartDashboard.putString("Drive Mode: ", "Arcade");
-    			break;
-    		case 2:			//MECANUM DRIVE
-    			SmartDashboard.putString("Drive Mode: ", "Mecanum");
-    			break;
-    	}
+//    	switch(currMode.ordinal()){
+//    		case 0:			//TANK DRIVE
+//    			SmartDashboard.putString("Drive Mode: ", "Tank");
+//    			break;
+//    		case 1:			//ARCADE DRIVE
+//    			SmartDashboard.putString("Drive Mode: ", "Arcade");
+//    			break;
+//    		case 2:			//MECANUM DRIVE
+//    			SmartDashboard.putString("Drive Mode: ", "Mecanum");
+//    			break;
+//    	}
+    	switch(currMode){
+			case TANK_DRIVE:
+				SmartDashboard.putString("Drive Mode: ", "Tank");
+				break;
+			case ARCADE_DRIVE:
+				SmartDashboard.putString("Drive Mode: ", "Arcade");
+				break;
+			case MECANUM_DRIVE:
+				SmartDashboard.putString("Drive Mode: ", "Mecanum");
+				break;
+	    }
     	
     	RobotMap.DRIVE_MODE = currMode;
     	

@@ -29,6 +29,7 @@ public class Pneumatics extends Subsystem {
 //EDIT
         
 		PneumaticCompressor = new Compressor(RobotMap.PCM_ID);
+		//PneumaticCompressor.stop();
 		PneumaticCompressor.setClosedLoopControl(true);
 		
 		Piston = new Solenoid(RobotMap.PISTON_ID);

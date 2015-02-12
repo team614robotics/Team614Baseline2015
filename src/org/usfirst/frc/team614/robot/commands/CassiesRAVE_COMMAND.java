@@ -7,31 +7,35 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseWinch extends Command {
+public class CassiesRAVE_COMMAND extends Command {
+
 	
-	private boolean firstTime;
-	private double timeout;
-	
-    public RaiseWinch(double time) {
+	double timeout = 0.0;
+    public CassiesRAVE_COMMAND(double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.winch);
-    	timeout=time;
+    	requires(Robot.camera);
+    	timeout = time;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize(){
-    	firstTime = true;
+    protected void initialize() {
     	setTimeout(timeout);
     }
+    
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute(){
-    	if(firstTime){
-    		Robot.winch.startMotor();
-    		firstTime = false;
-    	}
+    protected void execute() {
+    	double HorizontalValue = Math.random();
+    	double VerticalValue = Math.random();
     	
+    	Robot.camera.setServoPosition(VerticalValue, HorizontalValue);
+    	Robot.camera.logServoPosition();
+    	try{
+    		this.wait(300);
+    	}catch(InterruptedException IE){
+    		System.out.println("Could not accomplish designated wait time.");
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,13 +44,13 @@ public class RaiseWinch extends Command {
     }
 
     // Called once after isFinished returns true
-    protected void end(){
-    	Robot.winch.stopMotor();
+    protected void end() {
+    	Robot.camera.setServoPosition(0.5, 0.5);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.winch.stopMotor();
+    	Robot.camera.setServoPosition(0.5, 0.5);
     }
 }
