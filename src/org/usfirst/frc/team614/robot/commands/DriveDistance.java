@@ -37,12 +37,6 @@ public class DriveDistance extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.chassis.stopChassis();
-    	Robot.chassis.clearAssisted();
-    	if(driveForward){
-			Robot.chassis.toggleAssistedForward();
-		}else{
-			Robot.chassis.toggleAssistedBackward();
-		}
     	initialAngle = (Robot.gyroscope.getAngle() % 360.0);
     	setTimeout(Timeout);
     }
@@ -99,7 +93,6 @@ public class DriveDistance extends Command {
     // Called once after isFinished returns true
     protected void end(){
     	Robot.chassis.stopChassis();
-    	Robot.chassis.clearAssisted();
     	Robot.gyroscope.resetGyro();
     }
 
@@ -107,7 +100,6 @@ public class DriveDistance extends Command {
     // subsystems is scheduled to run
     protected void interrupted(){
     	Robot.chassis.stopChassis();
-    	Robot.chassis.clearAssisted();
     	Robot.gyroscope.resetGyro();
     }
 }

@@ -1,37 +1,36 @@
 package org.usfirst.frc.team614.robot.commands;
 
 import org.usfirst.frc.team614.robot.Robot;
+import org.usfirst.frc.team614.robot.RobotMap.RANGEFINDER;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class MoveCamera extends Command {
-
-    public MoveCamera() {
+public class GetRangefinderDistances extends Command {
+	
+    public GetRangefinderDistances(){
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.camera);
+    	requires(Robot.rangefinder);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    protected void initialize(){
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
-    	double verticalValue = Robot.oi.getPrimaryJoystick().getRawAxis(5);
-    	double horizontalValue = Robot.oi.getPrimaryJoystick().getRawAxis(4);
-    	
-    	verticalValue = (0.5 + (verticalValue / 2.0));
-    	horizontalValue = (0.5 + (horizontalValue / 2.0));
-    	
-    	Robot.camera.setServoPosition(verticalValue, horizontalValue);
+    	double currDistance = Robot.rangefinder.getDistance(RANGEFINDER.FRONT_RANGEFINDER);
+    	SmartDashboard.putNumber("Front RangeFinder Distance", currDistance);
+    	currDistance = Robot.rangefinder.getDistance(RANGEFINDER.REAR_RANGEFINDER);
+    	SmartDashboard.putNumber("Rear RangeFinder Distance", currDistance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    protected boolean isFinished(){
         return false;
     }
 

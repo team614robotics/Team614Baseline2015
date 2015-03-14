@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team614.robot.commands.ExampleCommand;
-import org.usfirst.frc.team614.robot.commands.AutonomousCommand_CG;
 import org.usfirst.frc.team614.robot.subsystems.Accelerometer;
 import org.usfirst.frc.team614.robot.subsystems.Camera;
 import org.usfirst.frc.team614.robot.subsystems.ExampleSubsystem;

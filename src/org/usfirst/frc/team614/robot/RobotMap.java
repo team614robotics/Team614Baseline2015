@@ -26,14 +26,6 @@ public class RobotMap {
 	public static final int VERTICAL_SERVO_PWM = 8;
 	
 	//CHASSIS CONSTANTS
-	public enum DriveMode{
-		
-		TANK_DRIVE,
-		ARCADE_DRIVE,
-		MECANUM_DRIVE
-	}
-	
-	public static DriveMode DRIVE_MODE = DriveMode.MECANUM_DRIVE;
 	public static final int LEFT_FRONT_MOTOR = 3;//0;//2;
 	public static final int LEFT_REAR_MOTOR = 0;//2;//0;  //switched this from RIGHT_REAR_MOTOR to test switching rotate and strafe functions
 	public static final int RIGHT_FRONT_MOTOR = 5;//1;//4;
@@ -53,15 +45,11 @@ public class RobotMap {
 	//RANGEFINDER CONSTANTS
 	public static enum RANGEFINDER{
 		FRONT_RANGEFINDER,
-		REAR_RANGEFINDER,  // Comment these out if only the Front Rangefinder is in use (REAR_RANGEFINDER, LEFT_RANGEFINDER, RIGHT_RANGFINDER) 
-		LEFT_RANGEFINDER,
-		RIGHT_RANGEFINDER
+		REAR_RANGEFINDER
 	}
 	
 	public static final int FRONT_RANGEFINDER_AC = 0;
 	public static final int REAR_RANGEFINDER_AC = 1; // Comment these out if only the Front Rangefinder is in use (REAR_RANGEFINDER, LEFT_RANGEFINDER, RIGHT_RANGFINDERLEFT_RANGEFINDER)
-	public static final int LEFT_RANGEFINDER_AC = 2;
-	public static final int RIGHT_RANGEFINDER_AC = 3;
 	
 	//GYROSCOPE CONSTANTS
 	public static final int GYROSCOPE_AC = 1;
@@ -79,6 +67,9 @@ public class RobotMap {
 	public static final int WINCH_ENCODER_A = 0;
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int ENCODER_RANGE = 2;
+	public static final double WINCH_LOW_DISTANCE = 0;
+	public static final double WINCH_MEDIUM_DISTANCE = 0;
+	public static final double WINCH_HIGH_DISTANCE = 0;
 	
 	//JOYSTICK CONSTANTS
 	public static final int PRIMARY_JOYSTICK = 0;

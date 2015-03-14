@@ -21,15 +21,8 @@ public class Drive_Joystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
-    	if(RobotMap.DRIVE_MODE == RobotMap.DriveMode.TANK_DRIVE){
-    		Robot.chassis.tankDriveMode(Robot.oi.getPrimaryJoystick());
-    	}else if(RobotMap.DRIVE_MODE == RobotMap.DriveMode.ARCADE_DRIVE){
-    		Robot.chassis.arcadeDriveMode(Robot.oi.getPrimaryJoystick());
-    	}else{
-    		Robot.chassis.mecanumDriveMode(Robot.oi.getPrimaryJoystick());
-    		//Robot.chassis.manualDrive(0.5, 90, 0.0);
-    	}
-    	Robot.chassis.logData();
+    	Robot.chassis.mecanumDriveMode(Robot.oi.getPrimaryJoystick());
+    	Robot.chassis.logEncoderData();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team614.robot.subsystems;
 
 import org.usfirst.frc.team614.robot.RobotMap;
-import org.usfirst.frc.team614.robot.commands.GetDistances;
+import org.usfirst.frc.team614.robot.commands.GetRangefinderDistances;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,23 +20,19 @@ public class RangeFinder extends Subsystem {
 	
 	private AnalogInput FrontRangeFinder;
 	private AnalogInput RearRangeFinder;
-	private AnalogInput LeftRangeFinder;
-	private AnalogInput RightRangeFinder;
 	
 
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new GetDistances());
+    	setDefaultCommand(new GetRangefinderDistances());
     }
     
     public RangeFinder(){
     	
     	FrontRangeFinder = new AnalogInput(RobotMap.FRONT_RANGEFINDER_AC);
     	RearRangeFinder = new AnalogInput(RobotMap.REAR_RANGEFINDER_AC);
-    	LeftRangeFinder = new AnalogInput(RobotMap.LEFT_RANGEFINDER_AC);
-    	RightRangeFinder = new AnalogInput(RobotMap.RIGHT_RANGEFINDER_AC);
     }
     
     public double getDistance(RobotMap.RANGEFINDER currRangeFinder){
@@ -49,12 +45,9 @@ public class RangeFinder extends Subsystem {
     		case 1:     //REAR RANGEFINDER
     			currDistance = RearRangeFinder.getAverageVoltage()/VoltageOutput;
     			break; 
-    		case 2:     //LEFT RANGEFINDER
-    			currDistance = LeftRangeFinder.getAverageVoltage()/VoltageOutput;
+    		default:
+    			currDistance = 0;
     			break;
-    		case 3:		//RIGHT RANGEFINDER
-    			currDistance = RightRangeFinder.getAverageVoltage()/VoltageOutput;
-    			break; 
     	}
     	
     	currDistance /= 2.54;  //converting from cm to inches

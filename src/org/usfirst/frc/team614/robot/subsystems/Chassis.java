@@ -32,11 +32,6 @@ public class Chassis extends Subsystem {
 	public static final int LREncoder = 2;
 	public static final int RREncoder = 3;
 	
-	private boolean ASSISTED_FORWARD = false;
-	private boolean ASSISTED_LEFT = false;
-	private boolean ASSISTED_RIGHT = false;
-	private boolean ASSISTED_BACKWARD = false;
-	
 	private RobotDrive Drive;
 
     public void initDefaultCommand() {
@@ -54,7 +49,6 @@ public class Chassis extends Subsystem {
     	 RightRearMotor = new Jaguar(RobotMap.RIGHT_REAR_MOTOR);
     	 */
     	
-    	
     	 LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
     	 LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
     	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
@@ -68,12 +62,6 @@ public class Chassis extends Subsystem {
     	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
     	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //these two motors are inverted because the motors are pointed in opposite directions
     	Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-    	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     }
     
     public void tankDriveMode(Joystick Controller){
@@ -127,23 +115,9 @@ public class Chassis extends Subsystem {
     	double Degrees = 0.0;
     	double Rotation = 0.0;
     	
-    	if(ASSISTED_FORWARD){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 180.0;
-    	}else if(ASSISTED_LEFT){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 90.0;
-    	}else if(ASSISTED_RIGHT){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 270.0;
-    	}else if(ASSISTED_BACKWARD){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 0.0;
-    	}else{
-    		SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
-    		Degrees = Controller.getDirectionDegrees();
-    		//Degrees = (Controller.getDirectionDegrees() * Controller.getDirectionDegrees())/100; //using input from the controller
-    	}
+    	SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
+    	Degrees = Controller.getDirectionDegrees();
+    	
     	Rotation = -(Controller.getRawAxis(4));
     	//Rotation = -(Controller.getRawAxis(4) * Controller.getRawAxis(4))/100; //Axis 4  =  right analog stick = rotation
     	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation); //if rotation is within the deadband range, set it equal to 0. If not, don't modify it. 
@@ -155,20 +129,6 @@ public class Chassis extends Subsystem {
     //EDIT FOR USE IN ALL DRIVE MODES
     public void manualDrive(double Magnitude, double Degrees, double Rotation){
     	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude);
-    	
-    	if(ASSISTED_FORWARD){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 180.0;
-    	}else if(ASSISTED_LEFT){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 90.0;
-    	}else if(ASSISTED_RIGHT){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 270.0;
-    	}else if(ASSISTED_BACKWARD){
-    		Magnitude = Math.abs(Magnitude);
-    		Degrees = 0.0;
-    	}
     	
     	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE);
     }
@@ -220,20 +180,6 @@ public class Chassis extends Subsystem {
 				return false;
 		}
     }
-   
-    
-    public void logData(){
-    	logAssistedData();
-    	logEncoderData();
-    }
-    
-    /* For Logging the Assisted Driving Booleans to the SmartDashboard */
-    public void logAssistedData(){
-    	SmartDashboard.putBoolean("Assisted Forward: ",  ASSISTED_FORWARD);
-    	SmartDashboard.putBoolean("Assisted Backward: ", ASSISTED_BACKWARD);
-    	SmartDashboard.putBoolean("Assisted Left: ",     ASSISTED_LEFT);
-    	SmartDashboard.putBoolean("Assisted Right: ",    ASSISTED_RIGHT);
-    }
     
     /* For Logging the Encoder Values to the SmartDashboard */
     public void logEncoderData(){
@@ -256,29 +202,6 @@ public class Chassis extends Subsystem {
     	RightFrontEncoder.reset();
     	RightRearEncoder.reset();
     	
-    }
-    
-    public void toggleAssistedForward(){
-    	ASSISTED_FORWARD = !ASSISTED_FORWARD;
-    }
-    
-    public void toggleAssistedLeft(){
-    	ASSISTED_LEFT = !ASSISTED_LEFT;
-    }
-    
-    public void toggleAssistedRight(){
-    	ASSISTED_RIGHT = !ASSISTED_RIGHT;
-    }
-    
-    public void toggleAssistedBackward(){
-    	ASSISTED_BACKWARD = !ASSISTED_BACKWARD;
-    }
-    
-    public void clearAssisted(){
-    	ASSISTED_FORWARD = false;
-    	ASSISTED_LEFT = false;
-    	ASSISTED_RIGHT = false;
-    	ASSISTED_BACKWARD = false;
     }
 }
 
