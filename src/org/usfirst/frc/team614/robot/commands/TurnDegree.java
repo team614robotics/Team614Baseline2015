@@ -12,13 +12,15 @@ public class TurnDegree extends Command {
 		private boolean isDone;
 	    private boolean firstTime;
         private double currAngle;
-	
-    public TurnDegree(double d) {
+	 private double targetAngle;
+    
+	 public TurnDegree(double d, double t) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.chassis);
     	requires(Robot.gyroscope);
     	
+    	targetAngle = t;
     	firstTime = true;
     }
 
@@ -39,6 +41,8 @@ public class TurnDegree extends Command {
     //	if(currAngle > 25 && currAngle < 35){
     //	isDone = true;	
     //	} 
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

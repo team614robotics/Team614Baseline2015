@@ -31,8 +31,7 @@ public class Gyroscope extends Subsystem {
     	Accelerometer = new BuiltInAccelerometer();
     	GyroScope = new Gyro(RobotMap.GYROSCOPE_AC);
     	GyroScope.setSensitivity(5 / GyroScope.getRate());
-    	//GyroScope.reset();
-    	GyroScope.initGyro();
+    	//GyroScope.reset();    	GyroScope.initGyro();
     	
     }
     

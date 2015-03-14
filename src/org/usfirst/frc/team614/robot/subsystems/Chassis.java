@@ -56,11 +56,9 @@ public class Chassis extends Subsystem {
     	
     	
     	 LeftFrontMotor = new VictorSP(RobotMap.LEFT_FRONT_MOTOR);
-    	 //LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
-    	 LeftRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
+    	 LeftRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
     	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
-    	 //RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
-    	 RightRearMotor = new VictorSP(RobotMap.LEFT_REAR_MOTOR);
+    	 RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
     	
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
@@ -68,7 +66,7 @@ public class Chassis extends Subsystem {
     	RightRearEncoder = new Encoder(RobotMap.RIGHT_REAR_ENCODER_A, RobotMap.RIGHT_REAR_ENCODER_B, true, EncodingType.k4X);
     	
     	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
-    	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+    	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //these two motors are inverted because the motors are pointed in opposite directions
     	Drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     	//Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
     	//Drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
@@ -114,8 +112,17 @@ public class Chassis extends Subsystem {
      *                     May need to change Degrees values */
     public void mecanumDriveMode(Joystick Controller){
     	
-    	double Magnitude = -Controller.getMagnitude();
-    	Magnitude = ((Magnitude < RobotMap.JOYSTICK_DEADBAND && Magnitude > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Magnitude); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
+    	//ADD RAMP FUNCTION; Remove SPEED_SCALE once this is implemented
+    	 	//See declarations for Magnitude and Degrees, and Rotation
+    		//Default Ramp Function = 100
+    		//Current Ramp Function = (x^2)/100
+    		//			also try    = (x^3)/10000
+    	//ADD RAMP FUNCTION
+    	//double Magnitude = -(Controller.getMagnitude()); // getMagnitude() returns a value between 0 and 1
+    	//double Magnitude = -(((Controller.getMagnitude()*10) * (Controller.getMagnitude()*10)))/100;
+    	double ControllerValue = Controller.getMagnitude();
+    	ControllerValue = ((ControllerValue < RobotMap.JOYSTICK_DEADBAND && ControllerValue > -RobotMap.JOYSTICK_DEADBAND) ? 0 : ControllerValue); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
+    	double Magnitude = -(1.0039215686275 * Math.pow(ControllerValue, 3) - 0.00616246498603 * ControllerValue);
     	
     	double Degrees = 0.0;
     	double Rotation = 0.0;
@@ -134,13 +141,15 @@ public class Chassis extends Subsystem {
     		Degrees = 0.0;
     	}else{
     		SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
-    		Degrees = Controller.getDirectionDegrees(); //using input from the controller
+    		Degrees = Controller.getDirectionDegrees();
+    		//Degrees = (Controller.getDirectionDegrees() * Controller.getDirectionDegrees())/100; //using input from the controller
     	}
-    	
-    	Rotation = -Controller.getRawAxis(4); //Axis 4  =  right analog stick = rotation
+    	Rotation = -(Controller.getRawAxis(4));
+    	//Rotation = -(Controller.getRawAxis(4) * Controller.getRawAxis(4))/100; //Axis 4  =  right analog stick = rotation
     	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation); //if rotation is within the deadband range, set it equal to 0. If not, don't modify it. 
     	
-    	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE);
+    	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE); //To increase the sensitivity, decrease SPEED_SCALE to a number below one but above 0
+    																						//To decrease the sensitivity, increase SPEED_SCALE to a number above one; 		SPEED_SCALE is here until a proper ramp function is implemented
     }
     
     //EDIT FOR USE IN ALL DRIVE MODES
@@ -174,6 +183,7 @@ public class Chassis extends Subsystem {
     
     public void straight(){
     	Drive.arcadeDrive(1.0, 1.0);
+    	
     }
     
     public void stopChassis(){
@@ -195,7 +205,7 @@ public class Chassis extends Subsystem {
     	}
     }
     
-    
+   
     public boolean getEncoderDirection(int encoderNum){
     	switch(encoderNum){
 			case LFEncoder: //if = 0
@@ -210,6 +220,7 @@ public class Chassis extends Subsystem {
 				return false;
 		}
     }
+   
     
     public void logData(){
     	logAssistedData();

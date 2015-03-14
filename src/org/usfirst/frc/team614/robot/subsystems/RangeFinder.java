@@ -1,11 +1,12 @@
 package org.usfirst.frc.team614.robot.subsystems;
 
 import org.usfirst.frc.team614.robot.RobotMap;
-
 import org.usfirst.frc.team614.robot.commands.GetDistances;
 
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 /**
  *
@@ -21,6 +22,8 @@ public class RangeFinder extends Subsystem {
 	private AnalogInput RearRangeFinder;
 	private AnalogInput LeftRangeFinder;
 	private AnalogInput RightRangeFinder;
+	
+
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -31,6 +34,9 @@ public class RangeFinder extends Subsystem {
     public RangeFinder(){
     	
     	FrontRangeFinder = new AnalogInput(RobotMap.FRONT_RANGEFINDER_AC);
+    	RearRangeFinder = new AnalogInput(RobotMap.REAR_RANGEFINDER_AC);
+    	LeftRangeFinder = new AnalogInput(RobotMap.LEFT_RANGEFINDER_AC);
+    	RightRangeFinder = new AnalogInput(RobotMap.RIGHT_RANGEFINDER_AC);
     }
     
     public double getDistance(RobotMap.RANGEFINDER currRangeFinder){
@@ -48,7 +54,7 @@ public class RangeFinder extends Subsystem {
     			break;
     		case 3:		//RIGHT RANGEFINDER
     			currDistance = RightRangeFinder.getAverageVoltage()/VoltageOutput;
-    			break;
+    			break; 
     	}
     	
     	currDistance /= 2.54;  //converting from cm to inches
