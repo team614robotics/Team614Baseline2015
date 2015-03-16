@@ -20,55 +20,39 @@ public class Pneumatics extends Subsystem {
 	//private Relay Piston;
 	private boolean pistonState;
 	
+	public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        //setDefaultCommand(new MySpecialCommand());
+    }
 	
-	
-	public Pneumatics()
-    {
-         //compressor = new Compressor(RobotMap.PCM_ID);
-        //compressor = new Compressor(RobotMap.PRESSURE_SWITCH_DIO, RobotMap.COMPRESSOR_SPIKE_RELAY);
-//EDIT
+	public Pneumatics(){
         
 		PneumaticCompressor = new Compressor(RobotMap.PCM_ID);
-		//PneumaticCompressor.stop();
 		PneumaticCompressor.setClosedLoopControl(true);
 		
 		Piston = new Solenoid(RobotMap.PISTON_ID);
-		//Piston = new Relay(RobotMap.PISTON_SPIKE_RELAY, Relay.Direction.kBoth);
 		
         pistonState = true;
-
-      //compressor.start();
     }
 
-    public boolean getPistonState()
-    {
+    public boolean getPistonState(){
         return pistonState;
     }
-
-    public void setPistonState(boolean newState)
-    {
-        pistonState = newState;
-    }
-
-    public void extendPiston()
-    {
+    
+    public void extendPiston(){
         Piston.set(true);
         pistonState = true;
         SmartDashboard.putBoolean("Piston State: ", pistonState);
     }
 
-    public void retractPiston()
-    {
+    public void retractPiston(){
         Piston.set(false);
         pistonState = false;
         SmartDashboard.putBoolean("Piston State: ", pistonState);
     }
-    
-    
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+    public void setPistonState(boolean newState){
+        pistonState = newState;
     }
 }
 

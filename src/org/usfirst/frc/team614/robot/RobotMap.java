@@ -64,6 +64,7 @@ public class RobotMap {
 	//WINCH CONSTANTS
 	public static final int PRIMARY_WINCH_MOTOR = 1;//5;//1;//5;
 	public static final int SECONDARY_WINCH_MOTOR = 2;//4;//3;//4;
+	public static final double WINCH_STALL_SPEED = 0.3; //NEED TO TEST
 	public static final int WINCH_ENCODER_A = 0;
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int ENCODER_RANGE = 2;

@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team614.robot.subsystems.Accelerometer;
 import org.usfirst.frc.team614.robot.subsystems.Camera;
-import org.usfirst.frc.team614.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team614.robot.subsystems.Chassis;
 import org.usfirst.frc.team614.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team614.robot.subsystems.PowerPanel;
@@ -26,7 +25,6 @@ import org.usfirst.frc.team614.robot.subsystems.Winch;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final Chassis chassis = new Chassis();
 	public static final RangeFinder rangefinder = null;// = new RangeFinder();
 	public static final Accelerometer accelerometer = null;// = new Accelerometer();

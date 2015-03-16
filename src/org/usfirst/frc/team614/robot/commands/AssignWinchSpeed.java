@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AssignWinchSpeed extends Command {
 
-	
-	private double prevEncDist;
-	private boolean firstTime;
-	private double offsetMotorSpeed = 0.0;
+	private double prevEncValue;
+	private double EncoderChange;
+	private double WinchSpeed;
+	private double offsetMotorSpeed;
 	
     public AssignWinchSpeed() {
         // Use requires() here to declare subsystem dependencies
@@ -23,49 +23,52 @@ public class AssignWinchSpeed extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	firstTime = true;
+    protected void initialize(){
+    	prevEncValue = Robot.winch.getEncoderDistance();
+    	EncoderChange = 0.0;
+    	WinchSpeed = 0.0;
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	/*
-    	if(firstTime){
-    		prevEncDist = Robot.winch.getEncoderDistance();
-    		firstTime = false;
-    		
-    	}
-    	*/
+    protected void execute(){
     	
-    	SmartDashboard.putNumber("Left Trigger Value: ", Robot.oi.getPrimaryJoystick().getRawAxis(2));
-    	SmartDashboard.putNumber("Right Trigger Value: ", -Robot.oi.getPrimaryJoystick().getRawAxis(3));
+    	EncoderChange = 0.0;
     	
-    	//double EncoderChange = Robot.winch.getEncoderDistance() - prevEncDist;
-    	double WinchSpeed = -Robot.oi.getPrimaryJoystick().getRawAxis(3); //the speed of the winch if the controller's assigned button is being pressed
-    	if(WinchSpeed == 0.0){ //if neither buttons are pressed or both are pressed fully
+    	//Get the Winch Speed from the Right/Left triggers
+    	WinchSpeed = -Robot.oi.getPrimaryJoystick().getRawAxis(3);
+    	if(WinchSpeed == 0.0){
     		WinchSpeed = Robot.oi.getPrimaryJoystick().getRawAxis(2);
     	}
+    	
+    	/**
+    	 * If we have a non-zero value for WinchSpeed, set the motors
+    	 * to run at that speed. Otherwise, maintain the current
+    	 * winch encoder value.
+    	 */
     	if(WinchSpeed == 0.0){
-    		Robot.winch.setMotorSpeed(0.0);
-    		/*
-    		//commented out until the winch encoders are installed
-	    	if(Math.abs(EncoderChange) > RobotMap.ENCODER_RANGE){ //if the winch shows a decrease in a noticeable distant, then start the motors
-	    	 
-				//now convert the encoder ticks into actual distance (not needed for now)
-	    		offsetMotorSpeed += 0.05; //continue to increase the motor speed until the speed can adequately offset the extra weight
-	    		offsetMotorSpeed = (offsetMotorSpeed > 1.0 ? 1.0 : offsetMotorSpeed); //if motor speed is > 1, set it = to 1. If not, don't modify it
-				Robot.winch.setMotorSpeed(offsetMotorSpeed);
-			}*/
+    		EncoderChange = Robot.winch.getEncoderDistance() - prevEncValue;
+    		if(Math.abs(EncoderChange) > RobotMap.ENCODER_RANGE){
+    			offsetMotorSpeed = (offsetMotorSpeed + 0.05 > 1.0 ? 1.0 : offsetMotorSpeed + 0.05);
+    			Robot.winch.setMotorSpeed(offsetMotorSpeed);
+    		}else{
+    			/**
+    			 * Either set the motors to a stall speed, and risk
+    			 * everything ******* up when there is no weight on
+    			 * the winch, or set it to zero and have to continuodly
+    			 * rev-up the motors.
+    			 */
+    			
+    			Robot.winch.stopMotor();
+    		}
     	}else{
-    		Robot.winch.setMotorSpeed(WinchSpeed); //use input from the controller
+    		Robot.winch.setMotorSpeed(WinchSpeed);
     	}
     	
-    	/*
-    	 if(Math.abs(EncoderChange) < RobotMap.ENCODER_RANGE){
-         	prevEncDist = Robot.winch.getEncoderDistance();  //record the current encDist to the previous for the next time this command is executed. 
-         	Robot.winch.setMotorSpeed(0.0);
-         }
-    	*/
+    	if(Math.abs(EncoderChange) < RobotMap.ENCODER_RANGE){
+    		prevEncValue = Robot.winch.getEncoderDistance();
+    		offsetMotorSpeed = 0.0;
+    		Robot.winch.stopMotor();
+    	}	
     }
 
     // Make this return true when this Command no longer needs to run execute()

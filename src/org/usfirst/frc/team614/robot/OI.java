@@ -20,13 +20,13 @@ public class OI {
 	public OI(){
 		
 		LiftShortButton = new JoystickButton(PrimaryJoystick, 1);
-		LiftShortButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_LOW_DISTANCE, !PrimaryJoystick.getRawButton(4), 5));
+		LiftShortButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_LOW_DISTANCE, !PrimaryJoystick.getRawButton(4)));
 		
 		LiftMediumButton = new JoystickButton(PrimaryJoystick, 2);
-		LiftMediumButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_MEDIUM_DISTANCE, !PrimaryJoystick.getRawButton(4), 5));
+		LiftMediumButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_MEDIUM_DISTANCE, !PrimaryJoystick.getRawButton(4)));
 		
 		LiftLongButton = new JoystickButton(PrimaryJoystick, 3);
-		LiftLongButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_HIGH_DISTANCE, !PrimaryJoystick.getRawButton(4), 5));
+		LiftLongButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_HIGH_DISTANCE, !PrimaryJoystick.getRawButton(4)));
 
 		
 	}

@@ -96,8 +96,6 @@ public class Chassis extends Subsystem {
     	Drive.arcadeDrive(leftValue, rightValue);
     }
     
-    /* Jered - 1/24/2015 - Test Assisted Driving for Viability
-     *                     May need to change Degrees values */
     public void mecanumDriveMode(Joystick Controller){
     	
     	//ADD RAMP FUNCTION; Remove SPEED_SCALE once this is implemented

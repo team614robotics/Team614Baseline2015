@@ -41,14 +41,9 @@ public class Winch extends Subsystem{
     	SecondaryWinchTalon.set(MOTOR_SPEED);
     }
     
-    public void stopMotor(){
-    	PrimaryWinchTalon.set(0);
-    	SecondaryWinchTalon.set(0);
-    }
-    
     public void reverseMotor(){
-    	PrimaryWinchTalon.set(-MOTOR_SPEED/2);
-    	SecondaryWinchTalon.set(-MOTOR_SPEED/2);
+    	PrimaryWinchTalon.set(-MOTOR_SPEED);
+    	SecondaryWinchTalon.set(-MOTOR_SPEED);
     }
     
     public void setMotorSpeed(double Speed){
@@ -56,9 +51,17 @@ public class Winch extends Subsystem{
     	SecondaryWinchTalon.set(Speed);
     }
     
+    public void stopMotor(){
+    	PrimaryWinchTalon.set(0);
+    	SecondaryWinchTalon.set(0);
+    }
+    
+    public void resetEncoder(){
+    	WinchEncoder.reset();
+    }
+    
     public double getEncoderDistance(){
     	return WinchEncoder.getDistance();
-    	//return 0.0;
     }
     
     public boolean getEncoderDirection(){
@@ -66,14 +69,7 @@ public class Winch extends Subsystem{
     }
     
     public void logEncoderData(){
-    	
     	SmartDashboard.putNumber("Winch Encoder Distance: ", Robot.winch.getEncoderDistance());
-    	SmartDashboard.putString("Winch Encoder Direction: ", (Robot.winch.getEncoderDirection() ? "Clockwise" : "Counter-Clockwise"));
-    	
+    	SmartDashboard.putString("Winch Encoder Direction: ", (Robot.winch.getEncoderDirection() ? "Clockwise" : "Counter-Clockwise"));	
     }
-    
-    public void resetEncoder(){
-    	WinchEncoder.reset();
-    }
-    
 }

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team614.robot.subsystems;
 
-import org.usfirst.frc.team614.robot.commands.GetAngle;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -43,10 +41,7 @@ public class Accelerometer extends Subsystem {
     public void logSpeed(){
     	SmartDashboard.putNumber("Acceleration in X", getSpeedX()); //DOn'tknow why words are crossed out but it works. Sorry I failed you Jared
     	SmartDashboard.putNumber("Acceleration in Y", getSpeedY());
-    	SmartDashboard.putNumber("Acceleration in Z", getSpeedZ());
-    
-    	
-    	
-}
+    	SmartDashboard.putNumber("Acceleration in Z", getSpeedZ());  	
+    }
 }
 
