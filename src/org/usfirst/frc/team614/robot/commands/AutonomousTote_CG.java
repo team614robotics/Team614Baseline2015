@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousTote_CG extends CommandGroup {
     
-	private final double F_ToteEncoder = 0.0;
-	private final double S_ToteEncoder = 0.0;
-	private final double T_ToteEncoder = 0.0;
+	private final double F_ToteEncoder = 0.0; //First Tote Encoder	
+	private final double S_ToteEncoder = 0.0; //Second
+	private final double T_ToteEncoder = 0.0; //Third
 	private final double DriveDistance = 0.0;
 	private final double Timeout = 0.0;
 	

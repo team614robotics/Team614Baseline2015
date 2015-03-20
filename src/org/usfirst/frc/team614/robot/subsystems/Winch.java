@@ -21,6 +21,9 @@ public class Winch extends Subsystem{
 	private Talon SecondaryWinchTalon;
 	private Encoder WinchEncoder;
 	
+	private double WinchLimit = 0.0;
+	private boolean LimitStatus = true;
+	
 	private double MOTOR_SPEED = 0.5;
 	
     public void initDefaultCommand() {
@@ -34,6 +37,9 @@ public class Winch extends Subsystem{
     	PrimaryWinchTalon = new Talon(RobotMap.PRIMARY_WINCH_MOTOR);
     	SecondaryWinchTalon = new Talon(RobotMap.SECONDARY_WINCH_MOTOR);
     	WinchEncoder = new Encoder(RobotMap.WINCH_ENCODER_A, RobotMap.WINCH_ENCODER_B, true, EncodingType.k4X);
+    	
+    	//The Initial Value of the WinchEncoder acts as the limit
+    	WinchLimit = WinchEncoder.getDistance();
     }
     
     public void startMotor(){
@@ -54,6 +60,22 @@ public class Winch extends Subsystem{
     public void stopMotor(){
     	PrimaryWinchTalon.set(0);
     	SecondaryWinchTalon.set(0);
+    }
+    
+    public double getWinchLimit(){
+    	return WinchLimit;
+    }
+    
+    public void setWinchLimit(double WL){
+    	WinchLimit = WL;
+    }
+    
+    public boolean getLimitStatus(){
+    	return LimitStatus;
+    }
+    
+    public void setLimitStatus(boolean LS){
+    	LimitStatus = LS;
     }
     
     public void resetEncoder(){

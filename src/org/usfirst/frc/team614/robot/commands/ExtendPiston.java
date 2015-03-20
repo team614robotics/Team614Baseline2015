@@ -8,33 +8,41 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ExtendPiston extends Command {
-	
-	private boolean isDone;
-	
-    public ExtendPiston() {
+
+        
+        private static boolean firstTime;
+        private static double timeout;
+        
+    public ExtendPiston(double time) {
+        
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.pneumatics);
+        requires(Robot.pneumatics);
+        timeout = time;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize(){
-    	isDone = false;
+    protected void initialize() {
+        firstTime = true;
+        setTimeout(timeout);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute(){
-    	Robot.pneumatics.extendPiston();
-    	isDone = true;
+    protected void execute() {
+        if(firstTime && Robot.pneumatics.getPistonState() == false){
+                Robot.pneumatics.extendPiston();
+                firstTime = false;
+        }
+                
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isDone;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
-    protected void end(){
+    protected void end() {
     }
 
     // Called when another command which requires one or more of the same

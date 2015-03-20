@@ -27,8 +27,8 @@ public class AutonomousBarrel_CG extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ExtendPiston());
-    	addSequential(new RetractPiston());
+    	addSequential(new ExtendPiston(1.0));
+    	addSequential(new RetractPiston(1.0));
     	addSequential(new DriveDistance(Distance, true, Timeout));
     }
 }

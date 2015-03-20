@@ -25,8 +25,8 @@ public class GetRangefinderDistances extends Command {
     protected void execute(){
     	double currDistance = Robot.rangefinder.getDistance(RANGEFINDER.FRONT_RANGEFINDER);
     	SmartDashboard.putNumber("Front RangeFinder Distance", currDistance);
-    	currDistance = Robot.rangefinder.getDistance(RANGEFINDER.REAR_RANGEFINDER);
-    	SmartDashboard.putNumber("Rear RangeFinder Distance", currDistance);
+    	//currDistance = Robot.rangefinder.getDistance(RANGEFINDER.REAR_RANGEFINDER);
+    	//SmartDashboard.putNumber("Rear RangeFinder Distance", currDistance);
     }
 
     // Make this return true when this Command no longer needs to run execute()

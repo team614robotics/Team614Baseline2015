@@ -46,7 +46,7 @@ public class AssignWinchSpeed extends Command {
     	 * winch encoder value.
     	 */
     	if(WinchSpeed == 0.0){
-    		EncoderChange = Robot.winch.getEncoderDistance() - prevEncValue;
+    		/*EncoderChange = Robot.winch.getEncoderDistance() - prevEncValue;
     		if(Math.abs(EncoderChange) > RobotMap.ENCODER_RANGE){
     			offsetMotorSpeed = (offsetMotorSpeed + 0.05 > 1.0 ? 1.0 : offsetMotorSpeed + 0.05);
     			Robot.winch.setMotorSpeed(offsetMotorSpeed);
@@ -58,17 +58,27 @@ public class AssignWinchSpeed extends Command {
     			 * rev-up the motors.
     			 */
     			
-    			Robot.winch.stopMotor();
-    		}
+    			//Robot.winch.stopMotor();
+    		//}
+    		Robot.winch.stopMotor();
     	}else{
-    		Robot.winch.setMotorSpeed(WinchSpeed);
+    		SmartDashboard.putNumber("Winch Speed", WinchSpeed);
+    		if(Robot.winch.getLimitStatus()){
+	    		if(Robot.winch.getEncoderDistance() > Robot.winch.getWinchLimit()){
+	    			Robot.winch.setMotorSpeed(WinchSpeed);
+	    		}else{
+	    			Robot.winch.stopMotor();
+	    		}
+    		}else{
+    			Robot.winch.setMotorSpeed(WinchSpeed);
+    		}
     	}
     	
-    	if(Math.abs(EncoderChange) < RobotMap.ENCODER_RANGE){
+    	/*if(Math.abs(EncoderChange) < RobotMap.ENCODER_RANGE){
     		prevEncValue = Robot.winch.getEncoderDistance();
     		offsetMotorSpeed = 0.0;
     		Robot.winch.stopMotor();
-    	}	
+    	}*/	
     }
 
     // Make this return true when this Command no longer needs to run execute()

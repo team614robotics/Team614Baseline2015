@@ -18,17 +18,15 @@ public class Gyroscope extends Subsystem {
     // here. Call these from Commands.
 	
 	private Gyro GyroScope;
-	private BuiltInAccelerometer Accelerometer;
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new GetAngle());
+    	//setDefaultCommand(new GetAngle());
     }
     
     public Gyroscope(){  //the constructor
     	
-    	Accelerometer = new BuiltInAccelerometer();
     	GyroScope = new Gyro(RobotMap.GYROSCOPE_AC);
     	GyroScope.setSensitivity(5 / GyroScope.getRate());
     	//GyroScope.reset();    	GyroScope.initGyro();
@@ -45,11 +43,11 @@ public class Gyroscope extends Subsystem {
     
     public void resetGyro(){
     	GyroScope.reset();
-    	if(Accelerometer.getX() < RobotMap.ACCELEROMETER_RANGE && Accelerometer.getX() > -RobotMap.ACCELEROMETER_RANGE){
+    	/*if(Accelerometer.getX() < RobotMap.ACCELEROMETER_RANGE && Accelerometer.getX() > -RobotMap.ACCELEROMETER_RANGE){
     		if(Accelerometer.getY() < RobotMap.ACCELEROMETER_RANGE && Accelerometer.getY() > -RobotMap.ACCELEROMETER_RANGE){
     			GyroScope.initGyro();
     		}
-    	}
+    	}*/
     }
 }
 

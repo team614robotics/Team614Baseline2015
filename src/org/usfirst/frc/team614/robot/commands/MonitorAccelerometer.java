@@ -7,45 +7,30 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RetractPiston extends Command {
+public class MonitorAccelerometer extends Command {
 
-        
-        private static boolean firstTime;
-        private static double timeout;
-        
-    public RetractPiston(double time) {
-        
+    public MonitorAccelerometer() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.pneumatics);
-        timeout = time;
+    	requires(Robot.accelerometer);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-        firstTime = true;
-        setTimeout(timeout);
+    protected void initialize(){
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        
-        
-        if(firstTime && Robot.pneumatics.getPistonState()){ //only close the arms if the piston is already open
-                Robot.pneumatics.retractPiston();
-                firstTime = false;
-        }
-        
-                
+    protected void execute(){
+    	Robot.accelerometer.logSpeed();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    protected void end(){
     }
 
     // Called when another command which requires one or more of the same

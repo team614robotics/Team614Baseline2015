@@ -42,20 +42,28 @@ public class MoveWinch extends Command {
     	if(Robot.winch.getEncoderDistance() < WinchDesiredValue){
     		EncoderChange = Robot.winch.getEncoderDistance() - prevEncValue;
     		if(EncoderChange < RobotMap.ENCODER_RANGE){
-    			MotorSpeed = (MotorSpeed + 0.05 > 1.0 ? 1.0 : MotorSpeed + 0.05);
+    			MotorSpeed = (MotorSpeed + 0.05 > 1.0 ? 1.0 : MotorSpeed + 0.05); 
+    					/*
+    					 * Modified if-else statement. If MotorSpeed is above .95, then set it to 1. 
+    					 * 								If not, increase the MotorSpeed by increments of 0.05
+    					 */
     		}
     		Robot.winch.setMotorSpeed(MotorSpeed);
     	}else{
     		MotorSpeed = 0.0;
     		EncoderChange = Robot.winch.getEncoderDistance() - prevEncValue;
-    		if(Math.abs(EncoderChange) > RobotMap.ENCODER_RANGE){
+    		if(Math.abs(EncoderChange) > RobotMap.ENCODER_RANGE){ //If the winch changed by more than 2 ticks, 
     			MotorSpeed = (MotorSpeed + 0.05 > 1.0 ? 1.0 : MotorSpeed + 0.05);
+    					/*
+    					 * Modified if-else statement. If MotorSpeed is above .95, then set it to 1. 
+    					 * 								If not, increase the MotorSpeed by increments of 0.05
+    					 */
     			Robot.winch.setMotorSpeed(MotorSpeed);
     		}else{
     			/**
     			 * Either set the motors to a stall speed, and risk
     			 * everything ******* up when there is no weight on
-    			 * the winch, or set it to zero and have to continuodly
+    			 * the winch, or set it to zero and have to continually
     			 * rev-up the motors.
     			 */
     			

@@ -52,7 +52,7 @@ public class RobotMap {
 	public static final int REAR_RANGEFINDER_AC = 1; // Comment these out if only the Front Rangefinder is in use (REAR_RANGEFINDER, LEFT_RANGEFINDER, RIGHT_RANGFINDERLEFT_RANGEFINDER)
 	
 	//GYROSCOPE CONSTANTS
-	public static final int GYROSCOPE_AC = 1;
+	public static final int GYROSCOPE_AC = 3;
 	
 	//ACCELEROMETER CONSTANTS
 	public static final double ACCELEROMETER_RANGE = 0.5;
@@ -69,8 +69,8 @@ public class RobotMap {
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int ENCODER_RANGE = 2;
 	public static final double WINCH_LOW_DISTANCE = 0;
-	public static final double WINCH_MEDIUM_DISTANCE = 0;
-	public static final double WINCH_HIGH_DISTANCE = 0;
+	public static final double WINCH_MEDIUM_DISTANCE = 5;
+	public static final double WINCH_HIGH_DISTANCE = 10;
 	
 	//JOYSTICK CONSTANTS
 	public static final int PRIMARY_JOYSTICK = 0;

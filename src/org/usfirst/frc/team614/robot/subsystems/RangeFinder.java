@@ -52,6 +52,8 @@ public class RangeFinder extends Subsystem {
     	
     	currDistance /= 2.54;  //converting from cm to inches
     	
+    	//System.out.println(currDistance);
+    	
     	return currDistance;
     }
 }

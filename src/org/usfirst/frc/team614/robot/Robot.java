@@ -26,12 +26,12 @@ import org.usfirst.frc.team614.robot.subsystems.Winch;
 public class Robot extends IterativeRobot {
 
 	public static final Chassis chassis = new Chassis();
-	public static final RangeFinder rangefinder = null;// = new RangeFinder();
-	public static final Accelerometer accelerometer = null;// = new Accelerometer();
-	public static final Gyroscope gyroscope = null;// = new Gyroscope();
+	public static final RangeFinder rangefinder = new RangeFinder();
+	public static final Accelerometer accelerometer = null;//new Accelerometer();
+	public static final Gyroscope gyroscope = new Gyroscope();
 	public static final Winch winch  = new Winch();
 	public static final Pneumatics pneumatics = new Pneumatics(); //new Pneumatics();
-	public static final PowerPanel powerpanel = new PowerPanel();
+	public static final PowerPanel powerpanel = null;//new PowerPanel();
 	public static final Camera camera = null;//new Camera(); null for when it's hooked up to the new robot. If not, set it equal to new Camera()
 	public static OI oi;
 

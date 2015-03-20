@@ -3,7 +3,9 @@ package org.usfirst.frc.team614.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team614.robot.commands.ExtendPiston;
 import org.usfirst.frc.team614.robot.commands.MoveWinch;
+import org.usfirst.frc.team614.robot.commands.RetractPiston;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,6 +19,9 @@ public class OI {
 	private JoystickButton LiftMediumButton;
 	private JoystickButton LiftLongButton;
 	
+	private JoystickButton ExtendPiston;
+	private JoystickButton RetractPiston;
+	
 	public OI(){
 		
 		LiftShortButton = new JoystickButton(PrimaryJoystick, 1);
@@ -28,7 +33,14 @@ public class OI {
 		LiftLongButton = new JoystickButton(PrimaryJoystick, 3);
 		LiftLongButton.toggleWhenPressed(new MoveWinch(RobotMap.WINCH_HIGH_DISTANCE, !PrimaryJoystick.getRawButton(4)));
 
+		ExtendPiston = new JoystickButton(PrimaryJoystick, 6);
+		ExtendPiston.toggleWhenPressed(new ExtendPiston(1.0));
 		
+		//OpenArmsButton = new JoystickButton(PrimaryJoystick, 5);
+         //OpenArmsButton.toggleWhenActive(new OpenArms(1.0));
+		
+		RetractPiston = new JoystickButton(PrimaryJoystick, 5);
+		RetractPiston.toggleWhenPressed(new RetractPiston(1.0));
 	}
 	
 	public Joystick getPrimaryJoystick(){
