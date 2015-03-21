@@ -32,6 +32,7 @@ public class GetAngle extends Command {
     protected void execute() {
     	//SmartDashboard.putNumber("GyroScope Angle: ", Robot.gyroscope.getAngle()); 
     			//AccelerometerAngle is the resulting angle from the current speed in the y; AKA the resulting vector angle
+    	SmartDashboard.putNumber("Degrees: ", Robot.gyroscope.getAngle());
     	double AccelerometerAngle = Math.toDegrees(Math.atan2(Robot.accelerometer.getSpeedY(), Robot.accelerometer.getSpeedX()));//Math.sqrt((Math.pow(Robot.accelerometer.getSpeedX(), 2)) + (Math.pow(Robot.accelerometer.getSpeedY(), 2)));
     	double deltaTime = System.currentTimeMillis() - lastTime;
     	GyroAngle = (0.98 * (GyroAngle + (Robot.gyroscope.getAngle() * deltaTime))) + (0.02 * AccelerometerAngle); //these two constants (.98 & .002 a.t.m.) must add up to 1

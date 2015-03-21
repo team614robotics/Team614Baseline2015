@@ -27,8 +27,8 @@ public class Robot extends IterativeRobot {
 
 	public static final Chassis chassis = new Chassis();
 	public static final RangeFinder rangefinder = new RangeFinder();
-	public static final Accelerometer accelerometer = null;//new Accelerometer();
-	public static final Gyroscope gyroscope = new Gyroscope();
+	public static final Accelerometer accelerometer = new Accelerometer();
+	public static Gyroscope gyroscope = new Gyroscope();
 	public static final Winch winch  = new Winch();
 	public static final Pneumatics pneumatics = new Pneumatics(); //new Pneumatics();
 	public static final PowerPanel powerpanel = null;//new PowerPanel();

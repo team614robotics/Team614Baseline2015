@@ -98,7 +98,7 @@ public class Chassis extends Subsystem {
     
     public void mecanumDriveMode(Joystick Controller){
     	
-    	//ADD RAMP FUNCTION; Remove SPEED_SCALE once this is implemented
+    
     	 	//See declarations for Magnitude and Degrees, and Rotation
     		//Default Ramp Function = 100
     		//Current Ramp Function = (x^2)/100
@@ -113,7 +113,7 @@ public class Chassis extends Subsystem {
     	double Degrees = 0.0;
     	double Rotation = 0.0;
     	
-    	SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
+    	//SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
     	Degrees = Controller.getDirectionDegrees();
     	
     	Rotation = -(Controller.getRawAxis(4));

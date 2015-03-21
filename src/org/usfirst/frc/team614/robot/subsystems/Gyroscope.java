@@ -22,14 +22,16 @@ public class Gyroscope extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	//setDefaultCommand(new GetAngle());
+    	setDefaultCommand(new GetAngle());
     }
     
     public Gyroscope(){  //the constructor
     	
     	GyroScope = new Gyro(RobotMap.GYROSCOPE_AC);
-    	GyroScope.setSensitivity(5 / GyroScope.getRate());
-    	//GyroScope.reset();    	GyroScope.initGyro();
+    	GyroScope.initGyro();
+    	//GyroScope.setSensitivity(5 / GyroScope.getRate());
+    	//GyroScope.reset();   
+    	//GyroScope.initGyro(); 	
     	
     }
     

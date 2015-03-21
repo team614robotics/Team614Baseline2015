@@ -74,6 +74,8 @@ public class AssignWinchSpeed extends Command {
     		}
     	}
     	
+    	Robot.winch.logEncoderData();
+    	
     	/*if(Math.abs(EncoderChange) < RobotMap.ENCODER_RANGE){
     		prevEncValue = Robot.winch.getEncoderDistance();
     		offsetMotorSpeed = 0.0;

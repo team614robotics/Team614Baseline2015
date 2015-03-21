@@ -49,10 +49,10 @@ public class RobotMap {
 	}
 	
 	public static final int FRONT_RANGEFINDER_AC = 0;
-	public static final int REAR_RANGEFINDER_AC = 1; // Comment these out if only the Front Rangefinder is in use (REAR_RANGEFINDER, LEFT_RANGEFINDER, RIGHT_RANGFINDERLEFT_RANGEFINDER)
+	public static final int REAR_RANGEFINDER_AC = 2; // Comment these out if only the Front Rangefinder is in use (REAR_RANGEFINDER, LEFT_RANGEFINDER, RIGHT_RANGFINDERLEFT_RANGEFINDER)
 	
 	//GYROSCOPE CONSTANTS
-	public static final int GYROSCOPE_AC = 3;
+	public static final int GYROSCOPE_AC = 1;
 	
 	//ACCELEROMETER CONSTANTS
 	public static final double ACCELEROMETER_RANGE = 0.5;
