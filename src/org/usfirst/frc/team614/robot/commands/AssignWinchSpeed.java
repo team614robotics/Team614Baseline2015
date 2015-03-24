@@ -35,9 +35,9 @@ public class AssignWinchSpeed extends Command {
     	EncoderChange = 0.0;
     	
     	//Get the Winch Speed from the Right/Left triggers
-    	WinchSpeed = -Robot.oi.getPrimaryJoystick().getRawAxis(3);
+    	WinchSpeed = Robot.oi.getPrimaryJoystick().getRawAxis(3);
     	if(WinchSpeed == 0.0){
-    		WinchSpeed = Robot.oi.getPrimaryJoystick().getRawAxis(2);
+    		WinchSpeed = -(Robot.oi.getPrimaryJoystick().getRawAxis(2) / 10.0);
     	}
     	
     	/**

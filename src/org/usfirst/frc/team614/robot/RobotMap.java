@@ -74,6 +74,6 @@ public class RobotMap {
 	
 	//JOYSTICK CONSTANTS
 	public static final int PRIMARY_JOYSTICK = 0;
-	public static final double JOYSTICK_DEADBAND = 0.1;
+	public static final double JOYSTICK_DEADBAND = 0.2;
 	
 }

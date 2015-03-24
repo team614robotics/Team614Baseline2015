@@ -12,6 +12,7 @@ public class DriveDistance extends Command {
 	
 	private final boolean manualSpeedMode = true;
 	private final double MOTOR_REDUCTION_SCALE = 0.9;
+	private final int currEncoder = 3;
 	
 	private double distanceToDrive = 0.0;
 	private double initialAngle = 0.0;
@@ -29,7 +30,11 @@ public class DriveDistance extends Command {
     		averageCurrDistance += Robot.chassis.getEncoderDistance(i);
     	}
     	averageCurrDistance /= 4;*/
-    	distanceToDrive =  Robot.chassis.getEncoderDistance(0) + Distance;
+    	if(driveForward){
+    		distanceToDrive = Robot.chassis.getEncoderDistance(currEncoder) - Distance;
+    	}else{
+    		distanceToDrive = Robot.chassis.getEncoderDistance(currEncoder) + Distance;
+    	}
     	driveForward = Forward;
     	Timeout = Time;
     }
@@ -47,7 +52,8 @@ public class DriveDistance extends Command {
     	for(int i = 0; i < 4; i++){
     		averageCurrDistance += Robot.chassis.getEncoderDistance(i);
     	}*/
-    	while(Robot.chassis.getEncoderDistance(0) < distanceToDrive){
+    	boolean drivenDistance = false;
+    	while(!drivenDistance){
     		double currAngleOffset = (Robot.gyroscope.getAngle() % 360);
     		
     		/**
@@ -81,8 +87,10 @@ public class DriveDistance extends Command {
     			Robot.chassis.motorSpeedDrive(LeftMotorSpeed, LeftMotorSpeed, 
     					                      RightMotorSpeed, RightMotorSpeed);
     		}
+    		drivenDistance = (driveForward ? Robot.chassis.getEncoderDistance(currEncoder) < distanceToDrive: 
+    			              Robot.chassis.getEncoderDistance(currEncoder) > distanceToDrive);
     	}
-    	isDone = true;
+    	isDone = drivenDistance;
     }
 
     // Make this return true when this Command no longer needs to run execute()

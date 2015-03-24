@@ -108,7 +108,7 @@ public class Chassis extends Subsystem {
     	//double Magnitude = -(((Controller.getMagnitude()*10) * (Controller.getMagnitude()*10)))/100;
     	double ControllerValue = Controller.getMagnitude();
     	ControllerValue = ((ControllerValue < RobotMap.JOYSTICK_DEADBAND && ControllerValue > -RobotMap.JOYSTICK_DEADBAND) ? 0 : ControllerValue); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
-    	double Magnitude = -(1.0039215686275 * Math.pow(ControllerValue, 3) - 0.00616246498603 * ControllerValue);
+    	double Magnitude = -((1.0039215686275 * Math.pow(ControllerValue, 3)) - (0.00616246498603 * ControllerValue));
     	
     	double Degrees = 0.0;
     	double Rotation = 0.0;

@@ -32,7 +32,7 @@ public class Pneumatics extends Subsystem {
 		
 		Piston = new Solenoid(RobotMap.PISTON_ID);
 		
-        pistonState = true;
+        pistonState = false;
     }
 
     public boolean getPistonState(){

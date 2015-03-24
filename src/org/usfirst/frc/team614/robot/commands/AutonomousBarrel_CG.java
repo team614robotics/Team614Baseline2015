@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousBarrel_CG extends CommandGroup {
 	
 	private final double Distance = 0.0;
-	private final double Timeout = 0.0;
 	
     public  AutonomousBarrel_CG() {
         // Add Commands here:
@@ -27,8 +26,11 @@ public class AutonomousBarrel_CG extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new DriveDistance(10000000, false, 1.0));
     	addSequential(new ExtendPiston(1.0));
+    	//addSequential(new RetractPiston(1.0));
+    	addSequential(new DriveDistance(10000000, true, 5.0));
+    	addSequential(new DriveDistance(10000000, false, 0.5));
     	addSequential(new RetractPiston(1.0));
-    	addSequential(new DriveDistance(Distance, true, Timeout));
     }
 }
