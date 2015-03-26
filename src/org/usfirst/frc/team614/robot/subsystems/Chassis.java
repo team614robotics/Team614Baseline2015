@@ -28,8 +28,8 @@ public class Chassis extends Subsystem {
 	private Encoder LeftFrontEncoder, LeftRearEncoder, RightFrontEncoder, RightRearEncoder;
 	
 	public static final int LFEncoder = 0;
-	public static final int RFEncoder = 1;
-	public static final int LREncoder = 2;
+	public static final int LREncoder = 1;
+	public static final int RFEncoder = 2;
 	public static final int RREncoder = 3;
 	
 	private RobotDrive Drive;
@@ -54,10 +54,11 @@ public class Chassis extends Subsystem {
     	 RightFrontMotor = new VictorSP(RobotMap.RIGHT_FRONT_MOTOR);
     	 RightRearMotor = new VictorSP(RobotMap.RIGHT_REAR_MOTOR);
     	
+    	//NEED TO TEST FOR INVERSION OF ENCODERS
     	LeftFrontEncoder = new Encoder(RobotMap.LEFT_FRONT_ENCODER_A, RobotMap.LEFT_FRONT_ENCODER_B, true, EncodingType.k4X);
     	LeftRearEncoder = new Encoder(RobotMap.LEFT_REAR_ENCODER_A, RobotMap.LEFT_REAR_ENCODER_B, true, EncodingType.k4X);
-    	RightFrontEncoder = new Encoder(RobotMap.RIGHT_FRONT_ENCODER_A, RobotMap.RIGHT_FRONT_ENCODER_B, true, EncodingType.k4X);
-    	RightRearEncoder = new Encoder(RobotMap.RIGHT_REAR_ENCODER_A, RobotMap.RIGHT_REAR_ENCODER_B, true, EncodingType.k4X);
+    	RightFrontEncoder = new Encoder(RobotMap.RIGHT_FRONT_ENCODER_A, RobotMap.RIGHT_FRONT_ENCODER_B, false, EncodingType.k4X);
+    	RightRearEncoder = new Encoder(RobotMap.RIGHT_REAR_ENCODER_A, RobotMap.RIGHT_REAR_ENCODER_B, false, EncodingType.k4X);
     	
     	Drive = new RobotDrive(LeftFrontMotor, LeftRearMotor, RightFrontMotor, RightRearMotor);
     	Drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //these two motors are inverted because the motors are pointed in opposite directions
@@ -96,28 +97,20 @@ public class Chassis extends Subsystem {
     	Drive.arcadeDrive(leftValue, rightValue);
     }
     
-    public void mecanumDriveMode(Joystick Controller){
-    	
-    
-    	 	//See declarations for Magnitude and Degrees, and Rotation
-    		//Default Ramp Function = 100
-    		//Current Ramp Function = (x^2)/100
-    		//			also try    = (x^3)/10000
-    	//ADD RAMP FUNCTION
-    	//double Magnitude = -(Controller.getMagnitude()); // getMagnitude() returns a value between 0 and 1
-    	//double Magnitude = -(((Controller.getMagnitude()*10) * (Controller.getMagnitude()*10)))/100;
-    	double ControllerValue = Controller.getMagnitude();
-    	ControllerValue = ((ControllerValue < RobotMap.JOYSTICK_DEADBAND && ControllerValue > -RobotMap.JOYSTICK_DEADBAND) ? 0 : ControllerValue); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
-    	double Magnitude = -((1.0039215686275 * Math.pow(ControllerValue, 3)) - (0.00616246498603 * ControllerValue));
-    	
+    public void mecanumDriveMode(Joystick Controller){ 	
+    	double ControllerValue = 0.0;
+    	double Magnitude = 0.0;
     	double Degrees = 0.0;
     	double Rotation = 0.0;
     	
-    	//SmartDashboard.putNumber("Degrees: ", Controller.getDirectionDegrees());
+    	Controller.getMagnitude();
+    	ControllerValue = ((ControllerValue < RobotMap.JOYSTICK_DEADBAND && ControllerValue > -RobotMap.JOYSTICK_DEADBAND) ? 0 : ControllerValue); // if magnitude is within the deadband range, set it to 0. If not, don't modify it. 
+    	
+    	Magnitude = -((1.0039215686275 * Math.pow(ControllerValue, 3)) - (0.00616246498603 * ControllerValue));
+    	
     	Degrees = Controller.getDirectionDegrees();
     	
     	Rotation = -(Controller.getRawAxis(4));
-    	//Rotation = -(Controller.getRawAxis(4) * Controller.getRawAxis(4))/100; //Axis 4  =  right analog stick = rotation
     	Rotation = ((Rotation < RobotMap.JOYSTICK_DEADBAND && Rotation > -RobotMap.JOYSTICK_DEADBAND) ? 0 : Rotation); //if rotation is within the deadband range, set it equal to 0. If not, don't modify it. 
     	
     	Drive.mecanumDrive_Polar(Magnitude / SPEED_SCALE, Degrees, Rotation / SPEED_SCALE); //To increase the sensitivity, decrease SPEED_SCALE to a number below one but above 0
@@ -152,9 +145,9 @@ public class Chassis extends Subsystem {
     	switch(encoderNum){
     		case LFEncoder: //if = 0
     			return LeftFrontEncoder.getDistance();
-    		case RFEncoder: //if = 1
+    		case LREncoder: //if = 1
     			return RightFrontEncoder.getDistance();
-    		case LREncoder: //if = 2
+    		case RFEncoder: //if = 2
     			return LeftRearEncoder.getDistance();
     		case RREncoder: //if = 3
     			return RightRearEncoder.getDistance();
@@ -163,14 +156,35 @@ public class Chassis extends Subsystem {
     	}
     }
     
+    public double getAverageDistance(){
+    	double averageDistance = 0.0;
+    	int numEncoders = 4;
+    	for(int i = 0; i < 4; i++){
+    		double currDistance = this.getEncoderDistance(i);
+    		if(Math.abs(currDistance) > RobotMap.ENCODER_RANGE){
+    			averageDistance += currDistance;
+    		}else{
+    			numEncoders--;
+    		}
+    	}
+    	if(numEncoders != 0){
+    		averageDistance /= numEncoders;
+    	}else{
+    		SmartDashboard.putString("WARNING: ", "NO ENCODERS");
+    		System.out.println("WARNING: NO ENCODER DATA READABLE. FIX IMMEDIANTLY");
+    		return 0.0;
+    	}
+    	return averageDistance;
+    }
+    
    
     public boolean getEncoderDirection(int encoderNum){
     	switch(encoderNum){
 			case LFEncoder: //if = 0
 				return LeftFrontEncoder.getDirection();
-			case RFEncoder: //if = 1
+			case LREncoder: //if = 1
 				return RightFrontEncoder.getDirection();
-			case LREncoder: //if = 2
+			case RFEncoder: //if = 2
 				return LeftRearEncoder.getDirection();
 			case RREncoder: //if = 3
 				return RightRearEncoder.getDirection();
@@ -198,8 +212,7 @@ public class Chassis extends Subsystem {
     	LeftFrontEncoder.reset();
     	LeftRearEncoder.reset();
     	RightFrontEncoder.reset();
-    	RightRearEncoder.reset();
-    	
+    	RightRearEncoder.reset(); 	
     }
 }
 

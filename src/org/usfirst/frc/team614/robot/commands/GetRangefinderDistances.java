@@ -1,7 +1,6 @@
 package org.usfirst.frc.team614.robot.commands;
 
 import org.usfirst.frc.team614.robot.Robot;
-import org.usfirst.frc.team614.robot.RobotMap.RANGEFINDER;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,8 +22,8 @@ public class GetRangefinderDistances extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(){
-    	double currDistance = Robot.rangefinder.getDistance(RANGEFINDER.FRONT_RANGEFINDER);
-    	SmartDashboard.putNumber("Front RangeFinder Distance", currDistance);
+    	double currDistance = Robot.rangefinder.getDistance();
+    	SmartDashboard.putNumber("RangeFinder Distance", currDistance);
     	//currDistance = Robot.rangefinder.getDistance(RANGEFINDER.REAR_RANGEFINDER);
     	//SmartDashboard.putNumber("Rear RangeFinder Distance", currDistance);
     }

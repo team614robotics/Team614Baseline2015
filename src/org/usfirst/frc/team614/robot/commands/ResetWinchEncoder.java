@@ -25,6 +25,7 @@ public class ResetWinchEncoder extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Robot.winch.resetEncoder();
+    	Robot.winch.resetEncoder();
     	isDone = true;
     }
 

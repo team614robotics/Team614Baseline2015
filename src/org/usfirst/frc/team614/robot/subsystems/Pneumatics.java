@@ -17,7 +17,6 @@ public class Pneumatics extends Subsystem {
 
 	private Compressor PneumaticCompressor;
 	private Solenoid Piston;
-	//private Relay Piston;
 	private boolean pistonState;
 	
 	public void initDefaultCommand() {
@@ -33,24 +32,22 @@ public class Pneumatics extends Subsystem {
 		Piston = new Solenoid(RobotMap.PISTON_ID);
 		
         pistonState = false;
+	}
+    
+    public void extendPiston(){
+    	pistonState = true;
+        Piston.set(pistonState);
     }
 
+    public void retractPiston(){
+    	pistonState = false;
+        Piston.set(pistonState);
+    }
+    
     public boolean getPistonState(){
         return pistonState;
     }
     
-    public void extendPiston(){
-        Piston.set(true);
-        pistonState = true;
-        SmartDashboard.putBoolean("Piston State: ", pistonState);
-    }
-
-    public void retractPiston(){
-        Piston.set(false);
-        pistonState = false;
-        SmartDashboard.putBoolean("Piston State: ", pistonState);
-    }
-
     public void setPistonState(boolean newState){
         pistonState = newState;
     }

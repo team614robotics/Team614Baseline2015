@@ -1,6 +1,5 @@
 package org.usfirst.frc.team614.robot.subsystems;
 
-import org.usfirst.frc.team614.robot.RobotMap;
 import org.usfirst.frc.team614.robot.commands.MonitorAccelerometer;
 
 import edu.wpi.first.wpilibj.command.Subsystem;

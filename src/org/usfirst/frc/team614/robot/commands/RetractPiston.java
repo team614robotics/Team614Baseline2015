@@ -8,10 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class RetractPiston extends Command {
-
-        
-        private static boolean firstTime;
-        private static double timeout;
+ 
+    private boolean firstTime;
+    private double timeout;
         
     public RetractPiston(double time) {
         
@@ -30,13 +29,10 @@ public class RetractPiston extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         
-        
         if(firstTime && Robot.pneumatics.getPistonState()){ //only close the arms if the piston is already open
-                Robot.pneumatics.retractPiston();
-                firstTime = false;
-        }
-        
-                
+            Robot.pneumatics.retractPiston();
+            firstTime = false;
+        }         
     }
 
     // Make this return true when this Command no longer needs to run execute()

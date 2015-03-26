@@ -18,8 +18,8 @@ public class RangeFinder extends Subsystem {
 	
 	private double VoltageOutput = (5.09 / 1024.0);
 	
-	private AnalogInput FrontRangeFinder;
-	private AnalogInput RearRangeFinder;
+	//private AnalogInput FrontRangeFinder;
+	private AnalogInput RangeFinder;
 	
 
 
@@ -31,24 +31,14 @@ public class RangeFinder extends Subsystem {
     
     public RangeFinder(){
     	
-    	FrontRangeFinder = new AnalogInput(RobotMap.FRONT_RANGEFINDER_AC);
-    	RearRangeFinder = new AnalogInput(RobotMap.REAR_RANGEFINDER_AC);
+    	//FrontRangeFinder = new AnalogInput(RobotMap.FRONT_RANGEFINDER_AC);
+    	RangeFinder = new AnalogInput(RobotMap.RANGEFINDER_AC);
     }
     
-    public double getDistance(RobotMap.RANGEFINDER currRangeFinder){
+    public double getDistance(){
     	double currDistance = 0.0;
     	
-    	switch(currRangeFinder.ordinal()){
-    		case 0: 	//FRONT RANGEFINDER
-    			currDistance = FrontRangeFinder.getAverageVoltage()/VoltageOutput;
-    			break;
-    		case 1:     //REAR RANGEFINDER
-    			currDistance = RearRangeFinder.getAverageVoltage()/VoltageOutput;
-    			break; 
-    		default:
-    			currDistance = 0;
-    			break;
-    	}
+    	currDistance = RangeFinder.getAverageVoltage() / VoltageOutput;
     	
     	currDistance /= 2.54;  //converting from cm to inches
     	
